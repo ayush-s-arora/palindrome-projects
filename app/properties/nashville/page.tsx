@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import {
     MapPin, Sparkles, Map, Users, FileText, ExternalLink, Wifi, Lock,
     Home, Plus, Shield, ArrowUpRight, Dog, Phone, Wind, Lightbulb,
-    Key, Coffee, Trash2, Briefcase, ShoppingBag, ShoppingCart, Wine
+    Key, Coffee, Trash2, Briefcase, ShoppingBag, ShoppingCart, Wine,
+    Music, Store, Utensils, Mountain
 } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
@@ -151,8 +152,13 @@ export default function CityGuidebook() {
                                     to Anu (local to Nashville), and she’ll be happy to help.</p>
                             </div>
                             <div className="mt-10 flex gap-4">
-                                <div className="px-6 py-3 rounded-2xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)] text-xs font-bold tracking-widest uppercase">Host: Anu</div>
-                                <button className="px-6 py-3 rounded-2xl border border-[var(--border)] text-xs font-bold tracking-widest uppercase hover:bg-[var(--fg)] hover:text-[var(--bg)] transition-colors">+1 (219) 670-9511</button>
+                                <div className="px-6 py-3 rounded-2xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)] text-xs font-bold tracking-widest uppercase">Host: owner</div>
+                                <a
+                                    href="tel:temp"
+                                    className="inline-block px-6 py-3 rounded-2xl border border-[var(--border)] text-xs font-bold tracking-widest uppercase hover:bg-[var(--fg)] hover:text-[var(--bg)] transition-colors"
+                                >
+                                    temp
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -605,7 +611,7 @@ export default function CityGuidebook() {
                                         </div>
                                         <p className="text-lg leading-relaxed text-stone-600 dark:text-stone-400">
                                             While pets aren&apos;t allowed in this specific unit, we have you covered.
-                                            Anu is a <span className="text-[var(--fg)] font-bold">certified dog sitter on Rover</span>.
+                                            owner is a <span className="text-[var(--fg)] font-bold">certified dog sitter on Rover</span>.
                                             If your pup needs a vacation of their own while you&apos;re here, let us know and we&apos;ll check the schedule!
                                         </p>
                                     </div>
@@ -771,14 +777,15 @@ export default function CityGuidebook() {
                             <h3 className="text-4xl font-bold tracking-tighter uppercase">Nearest Shopping</h3>
                         </div>
 
-                        {/* Shopping List - Grid with h-full for consistency */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        {/* Shopping List */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-stretch">
 
                             {/* Recommendation 1: Grocery */}
                             <div className="flex flex-col h-full space-y-6">
                                 <div className="p-3 w-fit rounded-2xl bg-stone-50 dark:bg-stone-900 border border-[var(--border)]">
                                     <ShoppingCart size={20} className="opacity-40" />
                                 </div>
+
                                 <div className="flex-grow space-y-4">
                                     <div className="space-y-1">
                                         <h4 className="text-lg font-bold uppercase leading-tight">
@@ -789,26 +796,29 @@ export default function CityGuidebook() {
                                             Nashville, TN 37206
                                         </p>
                                     </div>
-                                    <a href="tel:6152596072" className="inline-flex items-center gap-2 text-xs font-bold hover:underline decoration-1 underline-offset-4">
+                                    <a href="tel:6152596072" className="inline-flex items-center gap-2 text-xs font-bold hover:text-[var(--fg)] opacity-80 hover:opacity-100 transition-all underline decoration-[var(--border)] underline-offset-4">
                                         <Phone size={12} className="opacity-40" />
                                         (615) 259-6072
                                     </a>
                                 </div>
-                                <div className="pt-4 border-t border-stone-100 dark:border-stone-800 space-y-2">
-                                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
-                                    <div className="text-xs">
-                                        <p className="font-medium">Monday to Sunday</p>
-                                        <p className="opacity-60 italic text-[11px]">7:00 AM – 10:00 PM</p>
+
+                                <div className="pt-4 border-t border-[var(--border)] space-y-4">
+                                    <div className="space-y-2 min-h-[110px]">
+                                        <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
+                                        <div className="text-xs space-y-1">
+                                            <p className="font-medium uppercase">Monday to Sunday</p>
+                                            <p className="opacity-60 italic text-[11px]">7:00 AM – 10:00 PM</p>
+                                        </div>
                                     </div>
+                                    <a
+                                        href="https://www.google.com/maps/search/?api=1&query=Publix+Super+Market+at+Capitol+View"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[var(--fg)] opacity-40 hover:opacity-100 transition-opacity"
+                                    >
+                                        <MapPin size={12} /> Open in Maps
+                                    </a>
                                 </div>
-                                <a
-                                    href="https://www.google.com/maps/search/?api=1&query=Publix+Super+Market+at+Capitol+View+Nashville"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest hover:text-green-600 transition-colors pt-2"
-                                >
-                                    <MapPin size={12} /> Open in Maps
-                                </a>
                             </div>
 
                             {/* Recommendation 2: Essentials / CVS */}
@@ -816,6 +826,7 @@ export default function CityGuidebook() {
                                 <div className="p-3 w-fit rounded-2xl bg-stone-50 dark:bg-stone-900 border border-[var(--border)]">
                                     <ShoppingBag size={20} className="opacity-40" />
                                 </div>
+
                                 <div className="flex-grow space-y-4">
                                     <div className="space-y-1">
                                         <h4 className="text-lg font-bold uppercase leading-tight">
@@ -826,27 +837,29 @@ export default function CityGuidebook() {
                                             Nashville, TN 37203
                                         </p>
                                     </div>
-                                    <a href="tel:6153212590" className="inline-flex items-center gap-2 text-xs font-bold hover:underline decoration-1 underline-offset-4">
+                                    <a href="tel:6153212590" className="inline-flex items-center gap-2 text-xs font-bold hover:text-[var(--fg)] opacity-80 hover:opacity-100 transition-all underline decoration-[var(--border)] underline-offset-4">
                                         <Phone size={12} className="opacity-40" />
                                         (615) 321-2590
                                     </a>
                                 </div>
-                                <div className="pt-4 border-t border-stone-100 dark:border-stone-800 space-y-2">
-                                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
-                                    <div className="text-xs">
-                                        <p className="font-medium">Monday to Sunday</p>
-                                        <p className="opacity-60 italic text-[11px]">7:00 AM – 11:00 PM</p>
-                                        <p className="text-[10px] opacity-40 mt-1">*Pharmacy hours vary</p>
+
+                                <div className="pt-4 border-t border-[var(--border)] space-y-4">
+                                    <div className="space-y-2 min-h-[110px]">
+                                        <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
+                                        <div className="text-xs space-y-1">
+                                            <p className="font-medium uppercase">Monday to Sunday</p>
+                                            <p className="opacity-60 italic text-[11px]">7:00 AM – 11:00 PM</p>
+                                        </div>
                                     </div>
+                                    <a
+                                        href="https://www.google.com/maps/search/?api=1&query=CVS+Pharmacy+426+21st+Ave+S+Nashville"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[var(--fg)] opacity-40 hover:opacity-100 transition-opacity"
+                                    >
+                                        <MapPin size={12} /> Open in Maps
+                                    </a>
                                 </div>
-                                <a
-                                    href="https://www.google.com/maps/search/?api=1&query=CVS+426+21st+Ave+S+Nashville"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest hover:text-blue-600 transition-colors pt-2"
-                                >
-                                    <MapPin size={12} /> Open in Maps
-                                </a>
                             </div>
 
                             {/* Recommendation 3: Spirits / Frugal MacDoogal */}
@@ -854,6 +867,7 @@ export default function CityGuidebook() {
                                 <div className="p-3 w-fit rounded-2xl bg-stone-50 dark:bg-stone-900 border border-[var(--border)]">
                                     <Wine size={20} className="opacity-40" />
                                 </div>
+
                                 <div className="flex-grow space-y-4">
                                     <div className="space-y-1">
                                         <h4 className="text-lg font-bold uppercase leading-tight">
@@ -864,32 +878,176 @@ export default function CityGuidebook() {
                                             Nashville, TN 37203
                                         </p>
                                     </div>
-                                    <a href="tel:6152423861" className="inline-flex items-center gap-2 text-xs font-bold hover:underline decoration-1 underline-offset-4">
+                                    <a href="tel:6152423863" className="inline-flex items-center gap-2 text-xs font-bold hover:text-[var(--fg)] opacity-80 hover:opacity-100 transition-all underline decoration-[var(--border)] underline-offset-4">
                                         <Phone size={12} className="opacity-40" />
-                                        (615) 242-3861
+                                        (615) 242-3863
                                     </a>
                                 </div>
-                                <div className="pt-4 border-t border-stone-100 dark:border-stone-800 space-y-2">
-                                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
-                                    <div className="text-xs space-y-1">
-                                        <p className="font-medium">Mon–Thu: 9AM – 9PM</p>
-                                        <p className="font-medium">Fri–Sat: 9AM – 10PM</p>
-                                        <p className="font-medium">Sunday: 10AM – 6PM</p>
+
+                                <div className="pt-4 border-t border-[var(--border)] space-y-4">
+                                    <div className="space-y-2 min-h-[110px]">
+                                        <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
+                                        <div className="text-xs space-y-2">
+                                            <div className="space-y-0.5">
+                                                <p className="font-medium uppercase">Monday to Thursday</p>
+                                                <p className="opacity-60 italic text-[11px]">9:00 AM – 9:00 PM</p>
+                                            </div>
+                                            <div className="space-y-0.5">
+                                                <p className="font-medium uppercase">Friday to Saturday</p>
+                                                <p className="opacity-60 italic text-[11px]">9:00 AM – 10:00 PM</p>
+                                            </div>
+                                            <div className="space-y-0.5">
+                                                <p className="font-medium uppercase">Sunday</p>
+                                                <p className="opacity-60 italic text-[11px]">10:00 AM – 6:00 PM</p>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <a
+                                        href="https://www.google.com/maps/search/?api=1&query=Frugal+MacDoogal+Nashville"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[var(--fg)] opacity-40 hover:opacity-100 transition-opacity"
+                                    >
+                                        <MapPin size={12} /> Open in Maps
+                                    </a>
                                 </div>
-                                <a
-                                    href="https://www.google.com/maps/search/?api=1&query=Frugal+MacDoogal+Nashville"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest hover:text-amber-600 transition-colors pt-2"
-                                >
-                                    <MapPin size={12} /> Open in Maps
-                                </a>
                             </div>
 
                         </div>
                     </div>
                 </section>
+                {/* SECTION 11: LOCAL RECOMMENDATIONS */}
+                <section id="local" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col gap-16">
+
+                        {/* Section Header */}
+                        <div className="flex flex-col gap-4">
+                            <span className="text-5xl font-serif italic opacity-20">11</span>
+                            <div className="flex items-center gap-3">
+                                <MapPin size={18} strokeWidth={1.5} className="opacity-40" />
+                                <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">Palindrome's List</span>
+                            </div>
+                            <h3 className="text-4xl font-bold tracking-tighter uppercase">Local Recommendations</h3>
+                        </div>
+
+                        {/* Recommendations Grid - Aligned */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+                            {[
+                                {
+                                    name: "Broadway",
+                                    desc: "It wouldn’t be Nashville without Broadway! See what all the hype is about on this lively strip of clubs and bars.",
+                                    address: "Intersection of 5th + Broadway",
+                                    icon: <Music size={22} />,
+                                    link: "https://www.google.com/maps/search/?api=1&query=Broadway+Nashville"
+                                },
+                                {
+                                    name: "Little Hats Market",
+                                    desc: "Grab a bite at this cozy dining spot with indoor and outdoor seating! Wonderful Italian food and plenty to see in the Germantown area.",
+                                    address: "1120 4th Ave N #101",
+                                    icon: <Store size={22} />,
+                                    link: "https://www.google.com/maps/search/?api=1&query=Little+Hats+Market+Nashville"
+                                },
+                                {
+                                    name: "Baam Burger",
+                                    desc: "Grab a late night bite to eat just minutes from Broadway! The Baam Burger is a classic, and one of the best burgers we’ve had :)",
+                                    address: "223 4th Ave N",
+                                    icon: <Utensils size={22} />,
+                                    link: "https://www.google.com/maps/search/?api=1&query=Baam+Burger+Nashville"
+                                },
+                                {
+                                    name: "Love Circle",
+                                    desc: "Enjoy the Nashville skyline and sunset at this beautiful hilltop park. The perfect quiet escape from the city heat.",
+                                    address: "Love Park",
+                                    icon: <Mountain size={22} />,
+                                    link: "https://www.google.com/maps/search/?api=1&query=Love+Circle+Nashville"
+                                }
+                            ].map((place, idx) => (
+                                <div key={idx} className="flex flex-col border-l border-[var(--border)] pl-8 py-2">
+                                    {/* Header with Icon */}
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <div className="opacity-30">
+                                            {place.icon}
+                                        </div>
+                                        <h4 className="text-2xl font-bold tracking-tight uppercase">{place.name}</h4>
+                                    </div>
+
+                                    {/* Description */}
+                                    <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-400 font-medium mb-6">
+                                        {place.desc}
+                                    </p>
+
+                                    {/* Address & Action */}
+                                    <div className="mt-auto space-y-2">
+                                        <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Location</p>
+                                        <a
+                                            href={place.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group flex flex-col gap-1 w-fit"
+                                        >
+                                            <span className="text-xs font-bold underline decoration-[var(--border)] underline-offset-4 group-hover:text-[var(--fg)] transition-colors">
+                                                {place.address}
+                                            </span>
+                                            <span className="text-[9px] font-bold uppercase tracking-[0.2em] opacity-30 group-hover:opacity-100 transition-opacity flex items-center gap-1 mt-1">
+                                                <MapPin size={10} /> Open in Maps
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Cursive Sign-off */}
+                        <div className="pt-12 border-t border-[var(--border)] inline-block px-12 text-center">
+                            <p
+                                className="text-4xl opacity-60 lowercase leading-none"
+                                style={{ fontFamily: "'Dancing Script', 'Great Vibes', 'Snell Roundhand', cursive" }}
+                            >
+                                make beautiful memories
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                {/* FINAL FOOTER / THANK YOU */}
+                <footer className="mt-32 border-t border-[var(--border)]">
+                    {/* Cinematic Image Container */}
+                    <div className="relative w-full h-[60vh] overflow-hidden group">
+                        <img
+                            src="https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&q=80&w=2000"
+                            alt="Nashville Skyline at Dusk"
+                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        />
+                        {/* Dark Overlay for Typography Legibility */}
+                        <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center px-6">
+                            <span className="text-white/60 text-[10px] font-bold tracking-[0.4em] uppercase mb-4">
+                                Nashville, Tennessee
+                            </span>
+                            <h2 className="text-white text-6xl md:text-8xl font-bold tracking-tighter leading-[0.85] uppercase">
+                                Thank you <br />
+                                <span className="opacity-80">for staying</span> <br />
+                                with us
+                            </h2>
+                        </div>
+                    </div>
+
+                    {/* Final Message & Sign-off */}
+                    <div className="max-w-2xl mx-auto py-12 px-6 text-center space-y-12">
+                        <div className="space-y-6">
+                            <p className="text-lg font-medium leading-relaxed opacity-80">
+                                Thank you for choosing to stay with Palindrome
+                                Projects, we hope you had an amazing time and that
+                                we will see you again very soon!
+                            </p>
+                        </div>
+
+                        {/* The Cursive Signature - No extra space, perfectly centered */}
+                        <div className="pt opacity-20 text-[9px] font-bold uppercase tracking-[0.3em] leading-loose">
+                            Sentral Sobro
+                            <br />
+                            516 Lea Ave, Unit 1018, Nashville, TN 37203
+                        </div>
+                    </div>
+                </footer>
             </div >
         </main >
     );

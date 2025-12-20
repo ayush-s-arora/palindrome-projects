@@ -6,7 +6,7 @@ const PROPERTIES = [
   {
     id: 'nashville',
     name: 'Nashville',
-    description: 'Modern minimalist living in the heart of the metro.',
+    description: 'Modern living in the heart of Music City.',
     image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1000', // Potted plant/interior vibe
   },
 ];
@@ -23,7 +23,7 @@ export default function PropertiesPage() {
       >
         <span className="text-xs tracking-[0.3em] uppercase opacity-50 mb-4 block">Our Portfolio</span>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8">
-          Reliable stays, curated for you.
+          Local stays, curated for you.
         </h1>
         <p className="text-xl text-stone-500 leading-relaxed">
           We provide more than just a place to sleep. Every property is hand-selected and 

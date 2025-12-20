@@ -1,47 +1,896 @@
 "use client";
 import { motion } from 'framer-motion';
+import {
+    MapPin, Sparkles, Map, Users, FileText, ExternalLink, Wifi, Lock,
+    Home, Plus, Shield, ArrowUpRight, Dog, Phone, Wind, Lightbulb,
+    Key, Coffee, Trash2, Briefcase, ShoppingBag, ShoppingCart, Wine
+} from 'lucide-react';
+import Link from 'next/link';
+import React from 'react';
 
-const CONTENT = [
-  { id: 'wifi', title: 'High-Speed Wifi', body: 'Network: [Name]_Guest \nPass: [Password]' },
-  { id: 'entry', title: 'Keyless Entry', body: 'Your code is the last 4 digits of your phone number.' },
-  { id: 'transport', title: 'Getting Around', body: 'The nearest metro station is a 5-minute walk north.' }
+const SECTIONS = [
+    { id: 'hosts', title: 'MEET YOUR HOSTS', num: '02' },
+    { id: 'place', title: 'ABOUT THE PLACE', num: '03' },
+    { id: 'things', title: 'THINGS TO KNOW', num: '04' },
+    { id: 'wifi', title: 'CONNECT TO WIFI', num: '05' },
+    { id: 'stay', title: 'BEFORE YOUR STAY, CHECK IN, & CHECK OUT', num: '06' },
+    { id: 'notes', title: 'A FEW NOTES FOR YOUR STAY', num: '07' },
+    { id: 'go', title: 'BEFORE YOU GO', num: '08' },
+    { id: 'area', title: 'ABOUT THE AREA', num: '09' },
+    { id: 'shopping', title: 'NEAREST SHOPPING', num: '10' },
+    { id: 'local', title: 'LOCAL RECOMMENDATIONS', num: '11' },
 ];
 
-export default function CityPage() {
-  return (
-    <main className="pt-32 pb-20 px-6">
-      <div className="max-w-4xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-20"
-        >
-          <h1 className="text-5xl font-bold tracking-tight mb-4">City Guidebook</h1>
-          <p className="text-stone-500 text-lg">Everything you need for a perfect stay.</p>
-        </motion.div>
+const HIGHLIGHTS = [
+    { icon: Map, text: ["BEAUTIFUL", "CITY VIEW"] },
+    { icon: Sparkles, text: ["WALK TO", "BROADWAY"] },
+    { icon: Users, text: ["4 GUESTS", "1 BEDROOM", "1 KING + QUEEN", "1 BATHROOM"] }
+];
 
-        <div className="space-y-12">
-          {CONTENT.map((item, idx) => (
-            <motion.section 
-              key={item.id}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="group"
-            >
-              <div className="flex gap-8 p-8 rounded-[2rem] bg-stone-100 dark:bg-stone-900/50 border border-transparent hover:border-[var(--border)] transition-all">
-                <span className="text-sm font-mono opacity-20">0{idx + 1}</span>
-                <div>
-                  <h2 className="text-2xl font-semibold mb-3">{item.title}</h2>
-                  <p className="text-stone-600 dark:text-stone-400 whitespace-pre-line leading-relaxed">
-                    {item.body}
-                  </p>
-                </div>
-              </div>
-            </motion.section>
-          ))}
-        </div>
-      </div>
-    </main>
-  );
+export default function CityGuidebook() {
+    const [copied, setCopied] = React.useState(false);
+
+    const scrollTo = (id: string) => {
+        const element = document.getElementById(id);
+        if (element) {
+            // Offset for the sticky header
+            const offset = 100;
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = element.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    return (
+        <main className="min-h-screen bg-[var(--bg)] pt-24 pb-40">
+            <div className="max-w-4xl mx-auto px-6">
+
+                {/* SECTION 01: WELCOME & RECEPTION */}
+                <section id="welcome" className="text-center mb-24">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                        <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-2">WELCOME</h1>
+                        <p className="text-xs tracking-[0.4em] uppercase opacity-60 font-medium">FROM PALINDROME PROJECTS</p>
+                    </motion.div>
+
+                    <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 1 }} className="my-12 aspect-[16/10] bg-stone-200 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden shadow-sm">
+                        <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1512918766674-51610492642a?q=80&w=1200')` }}>
+                            <div className="w-full h-full bg-black/5 dark:bg-black/20" />
+                        </div>
+                    </motion.div>
+
+                    {/* Highlights Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                        {HIGHLIGHTS.map((h, i) => (
+                            <div key={i} className="flex flex-col items-center text-center p-8 border border-[var(--border)] rounded-3xl bg-white/50 dark:bg-white/5 min-h-[180px] justify-center">
+                                <h.icon size={20} className="mb-4 opacity-40 shrink-0" />
+                                <div className="flex flex-col gap-1">
+                                    {h.text.map((line, li) => (
+                                        <span key={li} className="text-[10px] tracking-widest font-bold uppercase leading-tight">{line}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="flex flex-col items-center gap-10">
+                        <div className="space-y-4">
+                            <div className="h-px w-12 bg-stone-300 dark:bg-stone-700 mx-auto" />
+                            <p className="text-xs tracking-[0.2em] font-medium opacity-80 uppercase">WE HOPE YOU ENJOY YOUR STAY!</p>
+                            <div className="h-px w-12 bg-stone-300 dark:bg-stone-700 mx-auto" />
+                        </div>
+
+                        <div className="inline-flex items-center gap-4 px-8 py-6 bg-stone-100 dark:bg-stone-900 rounded-[2rem] border border-[var(--border)] text-left">
+                            <MapPin size={20} className="text-stone-400 shrink-0" />
+                            <div className="flex flex-col text-base font-medium leading-tight tracking-tight">
+                                <span>Sentral Sobro</span>
+                                <span>516 Lea Ave, Unit 1018, Nashville, TN 37203</span>
+                            </div>
+                        </div>
+
+                        <Link href="https://tinyurl.com/palindrome-dec25" target="_blank" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-stone-200 dark:border-stone-800 text-xs font-semibold tracking-widest uppercase opacity-50 hover:opacity-100 transition-all">
+                            <FileText size={14} /> View PDF Version <ExternalLink size={12} className="opacity-50" />
+                        </Link>
+                    </div>
+                </section>
+
+                {/* TABLE OF CONTENTS */}
+                <section className="py-24 border-t border-[var(--border)]">
+                    <div className="flex flex-col md:flex-row gap-12 md:gap-24">
+                        <div className="flex md:flex-col gap-2 text-xs font-bold tracking-[0.5em] opacity-30 uppercase md:w-8">
+                            <span>T</span><span>A</span><span>B</span><span>L</span><span>E</span>
+                            <span>O</span><span>F</span>
+                            <span>C</span><span>O</span><span>N</span><span>T</span><span>E</span><span>N</span><span>T</span><span>S</span>
+                        </div>
+                        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8">
+                            {SECTIONS.map((item) => (
+                                <button key={item.id} onClick={() => scrollTo(item.id)} className="flex items-center gap-6 group text-left transition-all hover:translate-x-2">
+                                    <span className="text-4xl font-serif italic opacity-20 group-hover:opacity-100 transition-all">{item.num}</span>
+                                    <span className="text-xs font-bold tracking-widest uppercase opacity-70 group-hover:opacity-100">{item.title}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* SECTION 02: MEET YOUR HOSTS */}
+                <section id="hosts" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-16 items-start">
+
+                        {/* Host Image/Visual */}
+                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative group">
+                            <div
+                                className="w-full h-full bg-cover bg-center grayscale hover:grayscale-0 transition-all duration-700"
+                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000')` }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </div>
+
+                        {/* Host Content */}
+                        <div className="w-full md:w-7/12">
+                            {/* Number and Title stacked vertically */}
+                            <div className="flex flex-col gap-4 mb-8">
+                                <span className="text-5xl font-serif italic opacity-20">02</span>
+                                <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                                    Meet Your Hosts
+                                </h3>
+                            </div>
+                            <div className="space-y-6 text-stone-600 dark:text-stone-400 leading-relaxed text-lg">
+                                <p>Hello from the team at Palindrome Projects! We are a
+                                    familly-owned small business based in Chicago, IL.</p>
+                                <p>Our cozy apartment is located in the heart of Nashville,
+                                    offering a perfect blend of comfort and convenience.
+                                    Whether you're here for work or leisure, we hope you feel
+                                    at home and enjoy everything the area has to offer. If you
+                                    need anything during your stay, don't hesitate to reach out
+                                    to Anu (local to Nashville), and she’ll be happy to help.</p>
+                            </div>
+                            <div className="mt-10 flex gap-4">
+                                <div className="px-6 py-3 rounded-2xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)] text-xs font-bold tracking-widest uppercase">Host: Anu</div>
+                                <button className="px-6 py-3 rounded-2xl border border-[var(--border)] text-xs font-bold tracking-widest uppercase hover:bg-[var(--fg)] hover:text-[var(--bg)] transition-colors">+1 (219) 670-9511</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* SECTION 03: ABOUT THE PLACE */}
+                <section id="place" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col gap-12">
+
+                        {/* Cinematic Top Image */}
+                        <div className="w-full aspect-[21/9] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative group">
+                            <div
+                                className="w-full h-full bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2000')` }}
+                            />
+                            <div className="absolute inset-0 bg-black/10 dark:bg-black/20" />
+                        </div>
+
+                        {/* Content Row */}
+                        <div className="flex flex-col md:flex-row gap-16">
+                            <div className="w-full md:w-4/12">
+                                {/* Title below number */}
+                                <div className="flex flex-col gap-4 mb-8">
+                                    <span className="text-5xl font-serif italic opacity-20">03</span>
+                                    <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                                        About <br /> the Place
+                                    </h3>
+                                </div>
+                            </div>
+                            <div className="w-full md:w-8/12 space-y-8">
+                                <div className="space-y-6 text-stone-600 dark:text-stone-400 leading-relaxed text-lg">
+                                    <p>
+                                        Enjoy skyline and pool views from the 10th-floor
+                                        balcony of this peaceful, centrally located loft-style
+                                        apartment. Just half a mile from Broadway, you'll be
+                                        close to Nashville's best music, bars, and restaurants.
+                                        Inside, you'll have everything you need including a full
+                                        kitchen, bathroom, king bed + queen sofa bed,
+                                        fireplace, washer/dryer, hair tools, Yamaha guitar, and
+                                        complementary coffee & tea.
+                                    </p>
+                                    <p>
+                                        Head out to enjoy the city—or stay in and relax. Either way, you’re taken care of.
+                                    </p>
+                                    <p>
+                                        If you need any thing during your stay, we’re just a message away.
+                                    </p>
+                                </div>
+
+                                {/* Amenity Pills */}
+                                <div className="flex flex-wrap gap-2 pt-4">
+                                    {['BEAUTIFUL CITY VIEW', '4 GUESTS • 1 BEDROOM • 1 BATHROOM', 'WALK TO BROADWAY'].map((tag) => (
+                                        <span key={tag} className="px-4 py-2 rounded-full bg-stone-100 dark:bg-stone-900 text-[10px] font-bold tracking-widest uppercase opacity-60">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                {/* SECTION 04: THINGS TO KNOW */}
+                <section id="things" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-16 items-start">
+
+                        {/* Left Side: Visual Anchor */}
+                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative shadow-sm">
+                            <div
+                                className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-110"
+                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1000')` }}
+                            />
+                        </div>
+
+                        {/* Right Side: Content */}
+                        <div className="w-full md:w-7/12">
+                            {/* Title stacked below number */}
+                            <div className="flex flex-col gap-4 mb-12">
+                                <span className="text-5xl font-serif italic opacity-20">04</span>
+                                <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                                    Things to Know
+                                </h3>
+                            </div>
+
+                            <div className="space-y-16">
+                                {/* Supplies Block */}
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-px w-8 bg-stone-300 dark:bg-stone-700" />
+                                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">Supplies</span>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 gap-8 border-l border-stone-100 dark:border-stone-800 pl-8">
+                                        <div className="text-stone-600 dark:text-stone-400 leading-relaxed text-lg space-y-4">
+                                            <p>
+                                                Inside the apartment, you&apos;ll find everything you need for a comfortable, relaxing stay.
+                                                We&apos;ve stocked the kitchen with essentials like cookware, dishes, and coffee mugs.
+                                                We&apos;ve also included helpful extras you might have forgotten—such as toothbrushes, toothpaste, hair tools, and feminine hygiene products.
+                                            </p>
+                                            <p className="text-base opacity-80 italic">
+                                                If you need anything else, several convenience stores are just minutes away. Keep reading for nearest options.
+                                            </p>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+                                            <div className="space-y-1">
+                                                <span className="text-[10px] font-bold tracking-widest uppercase opacity-40">Bed & Bath</span>
+                                                <p className="text-sm">Extra blankets in bedroom basket. Additional towels, iron, and steamer in the closet.</p>
+                                            </div>
+                                            <div className="space-y-1">
+                                                <span className="text-[10px] font-bold tracking-widest uppercase opacity-40">Laundry</span>
+                                                <p className="text-sm">Washer/Dryer available with detergent provided. Vacuum located in laundry area.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Garbage Block */}
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-px w-8 bg-stone-300 dark:bg-stone-700" />
+                                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">Garbage</span>
+                                    </div>
+
+                                    <div className="border-l border-stone-100 dark:border-stone-800 pl-8 space-y-4">
+                                        <div className="text-stone-600 dark:text-stone-400 leading-relaxed text-lg">
+                                            <p>
+                                                Trash chutes are located by the elevators on the <span className="text-[var(--fg)] font-semibold">10th floor</span>.
+                                                Extra bags are under the kitchen sink.
+                                            </p>
+                                        </div>
+                                        <div className="p-6 bg-stone-50 dark:bg-stone-900/40 rounded-2xl">
+                                            <span className="text-[10px] font-bold tracking-widest uppercase opacity-40 block mb-2">Cardboard & Large Items</span>
+                                            <p className="text-sm leading-relaxed">
+                                                Dispose of boxes on the <span className="font-semibold text-[var(--fg)]">P3 parking level</span>.
+                                                Head to the parking garage, turn right, and look for the two large dumpsters.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                {/* SECTION 05: CONNECT TO WIFI */}
+                <section id="wifi" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-16 items-start">
+
+                        {/* Left Side: Stock Image */}
+                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative shadow-sm">
+                            <div
+                                className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-105"
+                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1551733592-220409806da7?q=80&w=1000')` }}
+                            />
+                        </div>
+
+                        {/* Right Side: Credentials */}
+                        <div className="w-full md:w-7/12">
+                            <div className="flex flex-col gap-4 mb-16">
+                                <span className="text-5xl font-serif italic opacity-20">05</span>
+                                <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                                    Connect <br /> to WiFi
+                                </h3>
+                            </div>
+
+                            <div className="space-y-12">
+                                {/* Network Name */}
+                                <div className="space-y-2">
+                                    <span className="text-[10px] font-bold tracking-[0.3em] uppercase opacity-40">Network</span>
+                                    <div className="flex items-center gap-4">
+                                        <Wifi size={24} className="opacity-20" />
+                                        <p className="text-3xl font-bold tracking-tight uppercase">1018</p>
+                                    </div>
+                                </div>
+
+                                {/* Password with Success State */}
+                                <div className="space-y-4">
+                                    <span className="text-[10px] font-bold tracking-[0.3em] uppercase opacity-40">Password</span>
+                                    <button
+                                        onClick={() => {
+                                            navigator.clipboard.writeText("welcomeguest");
+                                            setCopied(true);
+                                            setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+                                        }}
+                                        className="group flex flex-col items-start w-full text-left gap-4"
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <Lock size={24} className="opacity-20" />
+                                            <p className="text-3xl font-bold tracking-tight transition-opacity group-hover:opacity-60">
+                                                welcomeguest
+                                            </p>
+                                        </div>
+
+                                        {/* Animated Success Pill */}
+                                        <div className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 ${copied
+                                            ? "bg-green-500/10 border-green-500/50 text-green-600 dark:text-green-400"
+                                            : "bg-stone-100 dark:bg-stone-900 border-[var(--border)] group-hover:bg-[var(--fg)] group-hover:text-[var(--bg)]"
+                                            }`}>
+                                            <span className="text-[10px] font-bold tracking-widest uppercase">
+                                                {copied ? "Password Copied!" : "Tap to Copy Password"}
+                                            </span>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                {/* SECTION 06: LOGISTICS */}
+                <section id="logistics" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-16 items-start">
+
+                        {/* Left Side: Visual Anchor */}
+                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative shadow-sm">
+                            <div
+                                className="w-full h-full bg-cover bg-center"
+                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=1000')` }}
+                            />
+                        </div>
+
+                        {/* Right Side: Content */}
+                        <div className="w-full md:w-7/12">
+                            <div className="flex flex-col gap-4 mb-16">
+                                <span className="text-5xl font-serif italic opacity-20">06</span>
+                                <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                                    The <br /> Logistics
+                                </h3>
+                            </div>
+
+                            <div className="space-y-20">
+                                {/* 1. BEFORE YOUR STAY */}
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-3">
+                                        <span className="flex items-center justify-center w-6 h-6 rounded-full border border-[var(--fg)] text-[10px] font-bold">1</span>
+                                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">Before Your Stay</span>
+                                    </div>
+                                    <div className="border-l border-stone-100 dark:border-stone-800 ml-3 pl-8 space-y-6">
+                                        <p className="text-lg text-stone-600 dark:text-stone-400 leading-relaxed">
+                                            Please provide us with a <span className="text-[var(--fg)] font-bold">phone number</span> to link to our KeyCafe.
+                                            You&apos;ll receive a text with instructions to retrieve your keys upon arrival.
+                                        </p>
+                                        <div className="p-6 rounded-2xl bg-stone-50 dark:bg-stone-900/40 border border-[var(--border)]">
+                                            <span className="text-[10px] font-bold tracking-widest uppercase opacity-40 block mb-2">Parking Request</span>
+                                            <p className="text-sm text-stone-600 dark:text-stone-400">
+                                                Need a spot? Send us your vehicle&apos;s <span className="font-bold text-[var(--fg)]">Make, Model, Year, and State</span>.
+                                                Garage access is $35/night.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* 2. CHECK IN */}
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-3">
+                                        <span className="flex items-center justify-center w-6 h-6 rounded-full border border-[var(--fg)] text-[10px] font-bold">2</span>
+                                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">Check In</span>
+                                    </div>
+                                    <div className="border-l border-stone-100 dark:border-stone-800 ml-3 pl-8 space-y-8">
+                                        {/* Arrival Cheat Sheet */}
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="p-4 rounded-xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)]">
+                                                <span className="text-[9px] font-bold opacity-40 block uppercase">Parking Spot</span>
+                                                <span className="text-xl font-bold">293 (P4)</span>
+                                            </div>
+                                            <div className="p-4 rounded-xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)]">
+                                                <span className="text-[9px] font-bold opacity-40 block uppercase">Building Code</span>
+                                                <span className="text-xl font-bold">2024#</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-4 text-lg text-stone-600 dark:text-stone-400 leading-relaxed">
+                                            <p className="font-bold text-[var(--fg)] uppercase tracking-tight">Check in: 4:00 PM</p>
+                                            <p>
+                                                Park in <span className="font-bold text-[var(--fg)]">Spot 293 on P4</span>.
+                                                Enter the building using the code above and take the elevator to <span className="font-bold text-[var(--fg)]">P3</span>.
+                                            </p>
+                                            <p>
+                                                Look for the <span className="font-bold text-[var(--fg)] uppercase">Keycafe Lockers</span> immediately outside the elevator.
+                                                Use the code sent to your phone (avoid the web link) to grab your keys.
+                                                Your sanctuary is <span className="font-bold text-[var(--fg)]">Unit 1018</span> on the 10th floor.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* 3. CHECK OUT */}
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-3">
+                                        <span className="flex items-center justify-center w-6 h-6 rounded-full border border-[var(--fg)] text-[10px] font-bold">3</span>
+                                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">Check Out</span>
+                                    </div>
+                                    <div className="border-l border-stone-100 dark:border-stone-800 ml-3 pl-8 space-y-6">
+                                        <p className="text-xl font-bold text-[var(--fg)] uppercase tracking-tight">Check out: 11:00 AM</p>
+                                        <div className="text-lg text-stone-600 dark:text-stone-400 space-y-4 leading-relaxed">
+                                            <p>
+                                                To return the keys, head to <span className="font-bold text-[var(--fg)]">P3</span> and scan the <span className="font-bold text-[var(--fg)] uppercase">Blue Fob</span> on the lockers.
+                                                A door will open automatically for drop-off.
+                                            </p>
+                                            <p className="text-base italic opacity-80 border-t border-stone-100 dark:border-stone-800 pt-4">
+                                                Need more time? Let us know in advance and we&apos;ll check availability for a late check-out.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                {/* SECTION 07: NOTES & SAFETY */}
+                <section id="notes" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-16 items-start">
+
+                        {/* Rules Image/Visual */}
+                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative shadow-sm">
+                            <div
+                                className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-110"
+                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1513584684374-8bdb7489feef?q=80&w=1000')` }}
+                            />
+                            <div className="absolute inset-0 bg-stone-900/10" />
+                        </div>
+
+                        {/* Content */}
+                        <div className="w-full md:w-7/12">
+                            <div className="flex flex-col gap-4 mb-16">
+                                <span className="text-5xl font-serif italic opacity-20">07</span>
+                                <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                                    A few notes <br /> for your stay
+                                </h3>
+                            </div>
+
+                            <div className="space-y-24">
+                                {/* SUB-SECTION: HOUSE RULES */}
+                                <div className="space-y-8">
+                                    <div className="flex items-center gap-3">
+                                        <Home size={20} strokeWidth={1.5} className="opacity-40" />
+                                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40 text-[var(--fg)]">House Rules</span>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-12 gap-x-12 pl-8 border-l border-stone-100 dark:border-stone-800">
+                                        {[
+                                            { id: "01", text: "No smoking or vaping." },
+                                            { id: "02", text: "No unregistered guests." },
+                                            { id: "03", text: "No pets." },
+                                            { id: "04", text: "No excessive noise." },
+                                            { id: "05", text: "Notify us of any damage as soon as possible." }
+                                        ].map((rule) => (
+                                            <div key={rule.id} className="space-y-3">
+                                                <span className="text-[10px] font-mono font-bold opacity-20 block">{rule.id}</span>
+                                                <p className="text-xl font-semibold tracking-tight leading-tight text-stone-700 dark:text-stone-300">
+                                                    {rule.text}
+                                                </p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* SUB-SECTION: YOUR SAFETY */}
+                                <div className="space-y-8">
+                                    <div className="flex items-center gap-3">
+                                        <Plus size={20} strokeWidth={1.5} className="opacity-40" />
+                                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40 text-[var(--fg)]">Your Safety</span>
+                                    </div>
+
+                                    <div className="pl-8 border-l border-stone-100 dark:border-stone-800 space-y-12">
+                                        {/* Emergency Callout */}
+                                        <p className="text-3xl font-bold tracking-tight">
+                                            In case of emergency, <br /> please <a href="tel:911" className="underline underline-offset-8">call 911</a>.
+                                        </p>
+
+                                        {/* Emergency Locations (Hospital & Police) */}
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                            {/* Hospital Card */}
+                                            <a
+                                                href="https://www.google.com/maps/search/?api=1&query=Ascension+Saint+Thomas+Hospital+Midtown+Emergency"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="group p-6 rounded-[2rem] bg-stone-50 dark:bg-stone-900/40 border border-[var(--border)] hover:border-[var(--fg)] transition-all"
+                                            >
+                                                <div className="flex justify-between items-start mb-6">
+                                                    <div className="p-2 rounded-lg bg-red-500/10 text-red-600"><Plus size={18} /></div>
+                                                    <ArrowUpRight size={18} className="opacity-20 group-hover:opacity-100 transition-opacity" />
+                                                </div>
+                                                <span className="text-[10px] font-bold tracking-widest uppercase opacity-40 block mb-1">Emergency Room</span>
+                                                <p className="text-sm font-bold uppercase leading-tight">Saint Thomas Midtown</p>
+                                                <p className="text-xs opacity-60 mt-2 italic">2000 Church St, Nashville, TN 37203</p>
+
+                                                {/* Added Clickable Phone Number */}
+                                                <div className="mt-4 pt-4 border-t border-stone-200/50 dark:border-stone-700/50">
+                                                    <span onClick={(e) => { e.preventDefault(); window.location.href = 'tel:6152845555'; }} className="text-xs font-bold hover:text-red-600 transition-colors">
+                                                        (615) 284-5555
+                                                    </span>
+                                                </div>
+                                            </a>
+
+                                            {/* Police Card */}
+                                            <a
+                                                href="https://www.google.com/maps/search/?api=1&query=Midtown+Hills+Police+Precinct+Nashville"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="group p-6 rounded-[2rem] bg-stone-50 dark:bg-stone-900/40 border border-[var(--border)] hover:border-[var(--fg)] transition-all"
+                                            >
+                                                <div className="flex justify-between items-start mb-6">
+                                                    <div className="p-2 rounded-lg bg-blue-500/10 text-blue-600"><Shield size={18} /></div>
+                                                    <ArrowUpRight size={18} className="opacity-20 group-hover:opacity-100 transition-opacity" />
+                                                </div>
+                                                <span className="text-[10px] font-bold tracking-widest uppercase opacity-40 block mb-1">Police Precinct</span>
+                                                <p className="text-sm font-bold uppercase leading-tight">Midtown Hills Precinct</p>
+                                                <p className="text-xs opacity-60 mt-2 italic">1441 12th Ave S, Nashville, TN 37203</p>
+
+                                                {/* Added Clickable Phone Number */}
+                                                <div className="mt-4 pt-4 border-t border-stone-200/50 dark:border-stone-700/50">
+                                                    <span onClick={(e) => { e.preventDefault(); window.location.href = 'tel:6158801411'; }} className="text-xs font-bold hover:text-blue-600 transition-colors">
+                                                        (615) 880-1411
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        {/* Building Assistance */}
+                                        <div className="space-y-8 pt-4">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                                <div className="space-y-3">
+                                                    <span className="text-[10px] font-bold tracking-widest uppercase opacity-40 block">Front Desk / Security</span>
+                                                    <a href="tel:6159795013" className="group flex items-center gap-2 text-xl font-bold">
+                                                        <Phone size={16} className="opacity-20 group-hover:text-[var(--fg)] group-hover:opacity-100 transition-all" />
+                                                        (615) 979-5013
+                                                    </a>
+                                                </div>
+                                                <div className="space-y-3">
+                                                    <span className="text-[10px] font-bold tracking-widest uppercase opacity-40 block">After Hours Support</span>
+                                                    <a href="tel:6159655637" className="group flex items-center gap-2 text-xl font-bold">
+                                                        <Phone size={16} className="opacity-20 group-hover:text-[var(--fg)] group-hover:opacity-100 transition-all" />
+                                                        (615) 965-5637
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* HEADS UP: ROVER / PETS */}
+                                <div className="p-10 rounded-[2.5rem] bg-stone-50 dark:bg-stone-900/40 border border-[var(--border)] relative overflow-hidden group">
+                                    <div className="absolute top-0 right-0 p-8 opacity-[0.03] dark:opacity-[0.05] group-hover:scale-110 transition-transform duration-700">
+                                        <Dog size={120} />
+                                    </div>
+                                    <div className="relative flex flex-col gap-6 max-w-xl">
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2 rounded-full bg-[var(--fg)] text-[var(--bg)]">
+                                                <Dog size={16} strokeWidth={2.5} />
+                                            </div>
+                                            <span className="text-[10px] font-bold tracking-widest uppercase opacity-60">A note on furry friends</span>
+                                        </div>
+                                        <p className="text-lg leading-relaxed text-stone-600 dark:text-stone-400">
+                                            While pets aren&apos;t allowed in this specific unit, we have you covered.
+                                            Anu is a <span className="text-[var(--fg)] font-bold">certified dog sitter on Rover</span>.
+                                            If your pup needs a vacation of their own while you&apos;re here, let us know and we&apos;ll check the schedule!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* SECTION 08: BEFORE YOU GO */}
+                <section id="go" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-16 items-start">
+
+                        {/* Content Side */}
+                        <div className="w-full md:w-7/12">
+                            {/* Header with 11AM Reminder */}
+                            <div className="flex flex-col gap-4 mb-16">
+                                <span className="text-5xl font-serif italic opacity-20">08</span>
+                                <div className="space-y-2">
+                                    <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                                        Departure Checklist
+                                    </h3>
+                                    <p className="text-2xl font-medium tracking-tight">
+                                        Check out is 11:00 AM.
+                                    </p>
+                                    <p>
+                                        We hope you enjoyed your stay with us!
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Checklist Grid */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-12 gap-x-12 pl-8 border-l border-stone-100 dark:border-stone-800">
+                                {[
+                                    {
+                                        icon: <Wind size={20} />,
+                                        title: "Laundry",
+                                        desc: "Please place all used towels, dishcloths and bedding in the hamper provided (in the bedroom closet), and we will ensure they are laundered."
+                                    },
+                                    {
+                                        icon: <Lightbulb size={20} />,
+                                        title: "Lights",
+                                        desc: "Please make sure all lights and electronics are turned off before you leave."
+                                    },
+                                    {
+                                        icon: <Key size={20} />,
+                                        title: "Keys",
+                                        desc: "Please make sure all doors and windows are closed and locked. Return keys to their original location."
+                                    },
+                                    {
+                                        icon: <Coffee size={20} />,
+                                        title: "Dishes",
+                                        desc: "Please rinse dishes, load them into the dishwasher and start the cycle before you leave."
+                                    },
+                                    {
+                                        icon: <Trash2 size={20} />,
+                                        title: "Perishables & Leftovers",
+                                        desc: "Anything left in the fridge, cabinets, or counters will be disposed of."
+                                    },
+                                    {
+                                        icon: <Briefcase size={20} />,
+                                        title: "Personal Belongings",
+                                        desc: "Please make sure you are taking all of your personal belongings with you."
+                                    }
+                                ].map((item, idx) => (
+                                    <div key={idx} className="space-y-4 group">
+                                        <div className="flex items-center gap-3 opacity-40 group-hover:opacity-100 transition-opacity">
+                                            {item.icon}
+                                            <span className="text-[10px] font-bold tracking-[0.2em] uppercase">{item.title}</span>
+                                        </div>
+                                        <p className="text-sm font-medium leading-relaxed text-stone-600 dark:text-stone-400">
+                                            {item.desc}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Image Side */}
+                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative shadow-sm">
+                            <div
+                                className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-105"
+                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=1000')` }}
+                            />
+                            <div className="absolute inset-0 bg-stone-900/5" />
+                        </div>
+
+                    </div>
+                </section>
+                {/* SECTION 09: ABOUT THE AREA */}
+                <section id="area" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-16 items-start">
+
+                        {/* Text Content */}
+                        <div className="w-full md:w-7/12">
+                            {/* Header Stack */}
+                            <div className="flex flex-col gap-4 mb-12">
+                                <span className="text-5xl font-serif italic opacity-20">09</span>
+                                <div className="flex items-center gap-3">
+                                    <MapPin size={18} strokeWidth={1.5} className="opacity-40" />
+                                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40 text-[var(--fg)]">Local Perspective</span>
+                                </div>
+                                <h3 className="text-5xl font-bold tracking-tighter leading-[0.9] uppercase mt-4">
+                                    About the Area
+                                </h3>
+                                <p className="text-2xl font-medium tracking-tight">
+                                    Welcome to Nashville!
+                                </p>
+                            </div>
+
+                            {/* Narrative Paragraphs */}
+                            <div className="pl-8 border-l border-stone-100 dark:border-stone-800 space-y-8 max-w-xl">
+                                <p className="text-lg font-medium leading-relaxed text-stone-700 dark:text-stone-300">
+                                    You’ll be staying in SoBro, one
+                                    of Downtown Nashville’s most
+                                    vibrant and walkable
+                                    neighborhoods. The area is
+                                    packed with energy—live
+                                    music, rooftop bars, great
+                                    restaurants, and iconic spots
+                                    like the Ryman Auditorium,
+                                    Bridgestone Arena, and the
+                                    Country Music Hall of Fame
+                                    are all close by. Whether you’re
+                                    here for nightlife, sightseeing,
+                                    or great food, this location puts
+                                    you right in the middle of it.
+                                </p>
+
+                                <p className="text-m leading-relaxed text-stone-600 dark:text-stone-400">
+                                    We’ve provided some
+                                    recommendations in this book,
+                                    but let us know if you’d like
+                                    more!
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Skyscraper Image (The "Pretty" Side) */}
+                        <div className="w-full md:w-5/12 aspect-[2/3] bg-stone-100 dark:bg-stone-900 rounded-[3rem] overflow-hidden relative shadow-2xl">
+                            <div
+                                className="w-full h-full bg-cover bg-center transition-transform duration-[2000ms] hover:scale-110"
+                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1590059530490-67df76f9f30e?q=80&w=1000')` }}
+                            />
+                            {/* Subtle Overlay for Depth */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 via-transparent to-transparent" />
+
+                            {/* Floating Caption */}
+                            <div className="absolute bottom-8 left-8">
+                                <p className="text-[10px] font-bold tracking-widest text-white/80 uppercase">The South Central Bell Building</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                {/* SECTION 10: NEAREST SHOPPING */}
+                <section id="shopping" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col gap-16">
+
+                        {/* Section Header */}
+                        <div className="flex flex-col gap-4">
+                            <span className="text-5xl font-serif italic opacity-20">10</span>
+                            <h3 className="text-4xl font-bold tracking-tighter uppercase">Nearest Shopping</h3>
+                        </div>
+
+                        {/* Shopping List - Grid with h-full for consistency */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+
+                            {/* Recommendation 1: Grocery */}
+                            <div className="flex flex-col h-full space-y-6">
+                                <div className="p-3 w-fit rounded-2xl bg-stone-50 dark:bg-stone-900 border border-[var(--border)]">
+                                    <ShoppingCart size={20} className="opacity-40" />
+                                </div>
+                                <div className="flex-grow space-y-4">
+                                    <div className="space-y-1">
+                                        <h4 className="text-lg font-bold uppercase leading-tight">
+                                            Publix Super Market <br /> at Capitol View
+                                        </h4>
+                                        <p className="text-[11px] opacity-60 uppercase tracking-wider leading-relaxed">
+                                            1010 Dr. Martin L. King Jr. Blvd <br />
+                                            Nashville, TN 37206
+                                        </p>
+                                    </div>
+                                    <a href="tel:6152596072" className="inline-flex items-center gap-2 text-xs font-bold hover:underline decoration-1 underline-offset-4">
+                                        <Phone size={12} className="opacity-40" />
+                                        (615) 259-6072
+                                    </a>
+                                </div>
+                                <div className="pt-4 border-t border-stone-100 dark:border-stone-800 space-y-2">
+                                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
+                                    <div className="text-xs">
+                                        <p className="font-medium">Monday to Sunday</p>
+                                        <p className="opacity-60 italic text-[11px]">7:00 AM – 10:00 PM</p>
+                                    </div>
+                                </div>
+                                <a
+                                    href="https://www.google.com/maps/search/?api=1&query=Publix+Super+Market+at+Capitol+View+Nashville"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest hover:text-green-600 transition-colors pt-2"
+                                >
+                                    <MapPin size={12} /> Open in Maps
+                                </a>
+                            </div>
+
+                            {/* Recommendation 2: Essentials / CVS */}
+                            <div className="flex flex-col h-full space-y-6">
+                                <div className="p-3 w-fit rounded-2xl bg-stone-50 dark:bg-stone-900 border border-[var(--border)]">
+                                    <ShoppingBag size={20} className="opacity-40" />
+                                </div>
+                                <div className="flex-grow space-y-4">
+                                    <div className="space-y-1">
+                                        <h4 className="text-lg font-bold uppercase leading-tight">
+                                            CVS Pharmacy
+                                        </h4>
+                                        <p className="text-[11px] opacity-60 uppercase tracking-wider leading-relaxed">
+                                            426 21st Ave S <br />
+                                            Nashville, TN 37203
+                                        </p>
+                                    </div>
+                                    <a href="tel:6153212590" className="inline-flex items-center gap-2 text-xs font-bold hover:underline decoration-1 underline-offset-4">
+                                        <Phone size={12} className="opacity-40" />
+                                        (615) 321-2590
+                                    </a>
+                                </div>
+                                <div className="pt-4 border-t border-stone-100 dark:border-stone-800 space-y-2">
+                                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
+                                    <div className="text-xs">
+                                        <p className="font-medium">Monday to Sunday</p>
+                                        <p className="opacity-60 italic text-[11px]">7:00 AM – 11:00 PM</p>
+                                        <p className="text-[10px] opacity-40 mt-1">*Pharmacy hours vary</p>
+                                    </div>
+                                </div>
+                                <a
+                                    href="https://www.google.com/maps/search/?api=1&query=CVS+426+21st+Ave+S+Nashville"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest hover:text-blue-600 transition-colors pt-2"
+                                >
+                                    <MapPin size={12} /> Open in Maps
+                                </a>
+                            </div>
+
+                            {/* Recommendation 3: Spirits / Frugal MacDoogal */}
+                            <div className="flex flex-col h-full space-y-6">
+                                <div className="p-3 w-fit rounded-2xl bg-stone-50 dark:bg-stone-900 border border-[var(--border)]">
+                                    <Wine size={20} className="opacity-40" />
+                                </div>
+                                <div className="flex-grow space-y-4">
+                                    <div className="space-y-1">
+                                        <h4 className="text-lg font-bold uppercase leading-tight">
+                                            Frugal MacDoogal
+                                        </h4>
+                                        <p className="text-[11px] opacity-60 uppercase tracking-wider leading-relaxed">
+                                            701 Division St <br />
+                                            Nashville, TN 37203
+                                        </p>
+                                    </div>
+                                    <a href="tel:6152423861" className="inline-flex items-center gap-2 text-xs font-bold hover:underline decoration-1 underline-offset-4">
+                                        <Phone size={12} className="opacity-40" />
+                                        (615) 242-3861
+                                    </a>
+                                </div>
+                                <div className="pt-4 border-t border-stone-100 dark:border-stone-800 space-y-2">
+                                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
+                                    <div className="text-xs space-y-1">
+                                        <p className="font-medium">Mon–Thu: 9AM – 9PM</p>
+                                        <p className="font-medium">Fri–Sat: 9AM – 10PM</p>
+                                        <p className="font-medium">Sunday: 10AM – 6PM</p>
+                                    </div>
+                                </div>
+                                <a
+                                    href="https://www.google.com/maps/search/?api=1&query=Frugal+MacDoogal+Nashville"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest hover:text-amber-600 transition-colors pt-2"
+                                >
+                                    <MapPin size={12} /> Open in Maps
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            </div >
+        </main >
+    );
 }

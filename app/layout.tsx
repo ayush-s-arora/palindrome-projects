@@ -8,8 +8,8 @@ import Header from "@/components/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "[Name] | Portfolio",
-  description: "Modern property and bio showcase",
+  title: "Palindrome Projects",
+  description: "High quality rentals and short-term stays.",
 };
 
 export default function RootLayout({

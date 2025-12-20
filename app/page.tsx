@@ -35,8 +35,8 @@ export default function Home() {
           whileInView={{ opacity: 1 }}
           className="text-3xl md:text-5xl font-light leading-tight tracking-tight text-stone-500"
         >
-          {/* BIO GOES HERE */}
-          This is where your content lives. Minimalist, high-end, and responsive.
+          Hello from the team at Palindrome Projects! We are a familly-owned small business based in Chicago, IL.
+          <br></br>We specialize in providing high-quality services to our customers—specifically rental housing and short-term stays.
         </motion.p>
       </section>
     </main>

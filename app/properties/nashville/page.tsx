@@ -30,6 +30,7 @@ const HIGHLIGHTS = [
 
 export default function CityGuidebook() {
     const [copied, setCopied] = React.useState(false);
+    const [showNav, setShowNav] = React.useState(false);
 
     const scrollTo = (id: string) => {
         const element = document.getElementById(id);
@@ -46,72 +47,121 @@ export default function CityGuidebook() {
                 behavior: 'smooth'
             });
         }
+        setShowNav(false); // Close nav after clicking
     };
 
     return (
-        <main className="min-h-screen bg-[var(--bg)] pt-24 pb-40">
-            <div className="max-w-4xl mx-auto px-6">
+        <main className="min-h-screen bg-[var(--bg)] text-[var(--fg)] pt-20 sm:pt-24 pb-32 sm:pb-40 transition-colors duration-500">
+            {/* Mobile Section Navigation */}
+            <button
+                onClick={() => setShowNav(!showNav)}
+                className="fixed bottom-8 right-8 sm:bottom-12 sm:right-12 z-40 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-stone-800 border border-stone-700 flex items-center justify-center hover:bg-stone-700 transition-all shadow-lg"
+                title="Navigation"
+            >
+                <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            {/* Navigation Drawer */}
+            {showNav && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={() => setShowNav(false)}
+                    className="fixed inset-0 bg-black/50 z-30"
+                />
+            )}
+            <motion.div
+                initial={{ x: 400 }}
+                animate={{ x: showNav ? 0 : 400 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                className="fixed right-0 top-0 bottom-0 w-80 bg-stone-900 border-l border-stone-800 z-40 overflow-y-auto"
+            >
+                <div className="p-6 space-y-6">
+                    <div className="space-y-1">
+                        <h2 className="text-lg font-bold uppercase tracking-tight">Sections</h2>
+                        <p className="text-xs opacity-50 uppercase tracking-wider">Quick Navigation</p>
+                    </div>
+
+                    <nav className="space-y-1">
+                        {SECTIONS.map((section) => (
+                            <button
+                                key={section.id}
+                                onClick={() => scrollTo(section.id)}
+                                className="w-full text-left px-4 py-3 rounded-lg hover:bg-stone-800 transition-colors text-sm font-medium hover:opacity-100 opacity-70 group"
+                            >
+                                <span className="text-xs opacity-50 block mb-0.5">{section.num}</span>
+                                <span className="group-hover:translate-x-1 inline-block transition-transform">{section.title}</span>
+                            </button>
+                        ))}
+                    </nav>
+                </div>
+            </motion.div>
+
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
                 {/* SECTION 01: WELCOME & RECEPTION */}
                 <section id="welcome" className="text-center mb-24">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                        <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-2">WELCOME</h1>
+                        <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold tracking-tighter mb-2">WELCOME</h1>
                         <p className="text-xs tracking-[0.4em] uppercase opacity-60 font-medium">FROM PALINDROME PROJECTS</p>
                     </motion.div>
 
-                    <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 1 }} className="my-12 aspect-[16/10] bg-stone-200 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden shadow-sm">
+                    <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 1 }} className="my-8 sm:my-12 aspect-video bg-stone-200 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-sm">
                         <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1512918766674-51610492642a?q=80&w=1200')` }}>
                             <div className="w-full h-full bg-black/5 dark:bg-black/20" />
                         </div>
                     </motion.div>
 
                     {/* Highlights Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
                         {HIGHLIGHTS.map((h, i) => (
-                            <div key={i} className="flex flex-col items-center text-center p-8 border border-[var(--border)] rounded-3xl bg-white/50 dark:bg-white/5 min-h-[180px] justify-center">
+                            <div key={i} className="flex flex-col items-center text-center p-6 sm:p-8 border border-[var(--border)] rounded-2xl sm:rounded-3xl bg-stone-50 dark:bg-stone-900/50 min-h-[140px] sm:min-h-[180px] justify-center">
                                 <h.icon size={20} className="mb-4 opacity-40 shrink-0" />
                                 <div className="flex flex-col gap-1">
                                     {h.text.map((line, li) => (
-                                        <span key={li} className="text-[10px] tracking-widest font-bold uppercase leading-tight">{line}</span>
+                                        <span key={li} className="text-[9px] sm:text-[10px] tracking-widest font-bold uppercase leading-tight">{line}</span>
                                     ))}
                                 </div>
                             </div>
                         ))}
                     </div>
 
-                    <div className="flex flex-col items-center gap-10">
+                    <div className="flex flex-col items-center gap-6 sm:gap-10">
                         <div className="space-y-4">
-                            <div className="h-px w-12 bg-stone-300 dark:bg-stone-700 mx-auto" />
+                            <div className="h-px w-8 sm:w-12 bg-stone-300 dark:bg-stone-700 mx-auto" />
                             <p className="text-xs tracking-[0.2em] font-medium opacity-80 uppercase">WE HOPE YOU ENJOY YOUR STAY!</p>
-                            <div className="h-px w-12 bg-stone-300 dark:bg-stone-700 mx-auto" />
+                            <div className="h-px w-8 sm:w-12 bg-stone-300 dark:bg-stone-700 mx-auto" />
                         </div>
 
-                        <div className="inline-flex items-center gap-4 px-8 py-6 bg-stone-100 dark:bg-stone-900 rounded-[2rem] border border-[var(--border)] text-left">
-                            <MapPin size={20} className="text-stone-400 shrink-0" />
-                            <div className="flex flex-col text-base font-medium leading-tight tracking-tight">
+                        <div className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-4 px-4 sm:px-8 py-4 sm:py-6 bg-stone-100 dark:bg-stone-900 rounded-xl sm:rounded-[2rem] border border-[var(--border)] text-left">
+                            <MapPin size={18} className="text-stone-400 shrink-0" />
+                            <div className="flex flex-col text-sm sm:text-base font-medium leading-tight tracking-tight">
                                 <span>Sentral Sobro</span>
-                                <span>516 Lea Ave, Unit 1018, Nashville, TN 37203</span>
+                                <span className="text-xs sm:text-sm opacity-80">516 Lea Ave, Unit 1018, Nashville, TN 37203</span>
                             </div>
                         </div>
 
-                        <Link href="https://tinyurl.com/palindrome-dec25" target="_blank" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-stone-200 dark:border-stone-800 text-xs font-semibold tracking-widest uppercase opacity-50 hover:opacity-100 transition-all">
-                            <FileText size={14} /> View PDF Version <ExternalLink size={12} className="opacity-50" />
+                        <Link href="https://tinyurl.com/palindrome-dec25" target="_blank" className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-[var(--border)] text-xs font-semibold tracking-widest uppercase opacity-50 hover:opacity-100 transition-all">
+                            <FileText className="w-3 h-3 sm:w-4 sm:h-4" /> View PDF Version <ExternalLink className="w-3 h-3 sm:w-3 sm:h-3 opacity-50" />
                         </Link>
                     </div>
                 </section>
 
                 {/* TABLE OF CONTENTS */}
                 <section className="py-24 border-t border-[var(--border)]">
-                    <div className="flex flex-col md:flex-row gap-12 md:gap-24">
-                        <div className="flex md:flex-col gap-2 text-xs font-bold tracking-[0.5em] opacity-30 uppercase md:w-8">
+                    <div className="flex flex-col md:flex-row gap-8 md:gap-24">
+                        <div className="flex md:flex-col gap-1 sm:gap-2 text-[9px] sm:text-xs font-bold tracking-[0.3em] sm:tracking-[0.5em] opacity-30 uppercase md:w-8">
                             <span>T</span><span>A</span><span>B</span><span>L</span><span>E</span>
                             <span>O</span><span>F</span>
                             <span>C</span><span>O</span><span>N</span><span>T</span><span>E</span><span>N</span><span>T</span><span>S</span>
                         </div>
                         <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8">
                             {SECTIONS.map((item) => (
-                                <button key={item.id} onClick={() => scrollTo(item.id)} className="flex items-center gap-6 group text-left transition-all hover:translate-x-2">
-                                    <span className="text-4xl font-serif italic opacity-20 group-hover:opacity-100 transition-all">{item.num}</span>
+                                <button key={item.id} onClick={() => scrollTo(item.id)} className="flex items-center gap-3 sm:gap-6 group text-left transition-all hover:translate-x-2">
+                                    <span className="text-2xl sm:text-4xl font-serif italic opacity-20 group-hover:opacity-100 transition-all">{item.num}</span>
                                     <span className="text-xs font-bold tracking-widest uppercase opacity-70 group-hover:opacity-100">{item.title}</span>
                                 </button>
                             ))}
@@ -124,7 +174,7 @@ export default function CityGuidebook() {
                     <div className="flex flex-col md:flex-row gap-16 items-start">
 
                         {/* Host Image/Visual */}
-                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative group">
+                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative group">
                             <div
                                 className="w-full h-full bg-cover bg-center grayscale hover:grayscale-0 transition-all duration-700"
                                 style={{ backgroundImage: `url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000')` }}
@@ -135,9 +185,9 @@ export default function CityGuidebook() {
                         {/* Host Content */}
                         <div className="w-full md:w-7/12">
                             {/* Number and Title stacked vertically */}
-                            <div className="flex flex-col gap-4 mb-8">
-                                <span className="text-5xl font-serif italic opacity-20">02</span>
-                                <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                            <div className="flex flex-col gap-4 mb-6 sm:mb-8">
+                                <span className="text-4xl sm:text-5xl font-serif italic opacity-20">02</span>
+                                <h3 className="text-2xl sm:text-4xl font-bold tracking-tighter leading-tight uppercase">
                                     Meet Your Hosts
                                 </h3>
                             </div>
@@ -152,12 +202,12 @@ export default function CityGuidebook() {
                                     to Anu (local to Nashville), and she’ll be happy to help.</p>
                             </div>
                             <div className="mt-10 flex gap-4">
-                                <div className="px-6 py-3 rounded-2xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)] text-xs font-bold tracking-widest uppercase">Host: owner</div>
+                                <div className="px-6 py-3 rounded-2xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)] text-xs font-bold tracking-widest uppercase">Host: Anu</div>
                                 <a
-                                    href="tel:temp"
+                                    href="tel:2196709511"
                                     className="inline-block px-6 py-3 rounded-2xl border border-[var(--border)] text-xs font-bold tracking-widest uppercase hover:bg-[var(--fg)] hover:text-[var(--bg)] transition-colors"
                                 >
-                                    temp
+                                    (219) 670-9511
                                 </a>
                             </div>
                         </div>
@@ -165,11 +215,11 @@ export default function CityGuidebook() {
                 </section>
 
                 {/* SECTION 03: ABOUT THE PLACE */}
-                <section id="place" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
-                    <div className="flex flex-col gap-12">
+                <section id="place" className="pt-24 sm:pt-32 pb-16 sm:pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col gap-8 sm:gap-12">
 
                         {/* Cinematic Top Image */}
-                        <div className="w-full aspect-[21/9] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative group">
+                        <div className="w-full aspect-video sm:aspect-[21/9] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative group">
                             <div
                                 className="w-full h-full bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
                                 style={{ backgroundImage: `url('https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2000')` }}
@@ -178,18 +228,18 @@ export default function CityGuidebook() {
                         </div>
 
                         {/* Content Row */}
-                        <div className="flex flex-col md:flex-row gap-16">
+                        <div className="flex flex-col md:flex-row gap-12 sm:gap-16">
                             <div className="w-full md:w-4/12">
                                 {/* Title below number */}
-                                <div className="flex flex-col gap-4 mb-8">
-                                    <span className="text-5xl font-serif italic opacity-20">03</span>
-                                    <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                                <div className="flex flex-col gap-4 mb-6 sm:mb-8">
+                                    <span className="text-4xl sm:text-5xl font-serif italic opacity-20">03</span>
+                                    <h3 className="text-2xl sm:text-4xl font-bold tracking-tighter leading-tight uppercase">
                                         About <br /> the Place
                                     </h3>
                                 </div>
                             </div>
-                            <div className="w-full md:w-8/12 space-y-8">
-                                <div className="space-y-6 text-stone-600 dark:text-stone-400 leading-relaxed text-lg">
+                            <div className="w-full md:w-8/12 space-y-6 sm:space-y-8">
+                                <div className="space-y-4 sm:space-y-6 text-stone-600 dark:text-stone-400 leading-relaxed text-sm sm:text-lg">
                                     <p>
                                         Enjoy skyline and pool views from the 10th-floor
                                         balcony of this peaceful, centrally located loft-style
@@ -211,7 +261,7 @@ export default function CityGuidebook() {
                                 {/* Amenity Pills */}
                                 <div className="flex flex-wrap gap-2 pt-4">
                                     {['BEAUTIFUL CITY VIEW', '4 GUESTS • 1 BEDROOM • 1 BATHROOM', 'WALK TO BROADWAY'].map((tag) => (
-                                        <span key={tag} className="px-4 py-2 rounded-full bg-stone-100 dark:bg-stone-900 text-[10px] font-bold tracking-widest uppercase opacity-60">
+                                        <span key={tag} className="px-3 sm:px-4 py-2 rounded-full bg-stone-100 dark:bg-stone-900 text-[9px] sm:text-[10px] font-bold tracking-widest uppercase opacity-60">
                                             {tag}
                                         </span>
                                     ))}
@@ -221,11 +271,11 @@ export default function CityGuidebook() {
                     </div>
                 </section>
                 {/* SECTION 04: THINGS TO KNOW */}
-                <section id="things" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
-                    <div className="flex flex-col md:flex-row gap-16 items-start">
+                <section id="things" className="pt-24 sm:pt-32 pb-16 sm:pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-12 sm:gap-16 items-start">
 
                         {/* Left Side: Visual Anchor */}
-                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative shadow-sm">
+                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative shadow-sm">
                             <div
                                 className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-110"
                                 style={{ backgroundImage: `url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1000')` }}
@@ -235,14 +285,14 @@ export default function CityGuidebook() {
                         {/* Right Side: Content */}
                         <div className="w-full md:w-7/12">
                             {/* Title stacked below number */}
-                            <div className="flex flex-col gap-4 mb-12">
-                                <span className="text-5xl font-serif italic opacity-20">04</span>
-                                <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                            <div className="flex flex-col gap-4 mb-8 sm:mb-12">
+                                <span className="text-4xl sm:text-5xl font-serif italic opacity-20">04</span>
+                                <h3 className="text-2xl sm:text-4xl font-bold tracking-tighter leading-tight uppercase">
                                     Things to Know
                                 </h3>
                             </div>
 
-                            <div className="space-y-16">
+                            <div className="space-y-12 sm:space-y-16">
                                 {/* Supplies Block */}
                                 <div className="space-y-6">
                                     <div className="flex items-center gap-3">
@@ -262,14 +312,14 @@ export default function CityGuidebook() {
                                             </p>
                                         </div>
 
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-4">
                                             <div className="space-y-1">
-                                                <span className="text-[10px] font-bold tracking-widest uppercase opacity-40">Bed & Bath</span>
-                                                <p className="text-sm">Extra blankets in bedroom basket. Additional towels, iron, and steamer in the closet.</p>
+                                                <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase opacity-40">Bed & Bath</span>
+                                                <p className="text-xs sm:text-sm">Extra blankets in bedroom basket. Additional towels, iron, and steamer in the closet.</p>
                                             </div>
                                             <div className="space-y-1">
-                                                <span className="text-[10px] font-bold tracking-widest uppercase opacity-40">Laundry</span>
-                                                <p className="text-sm">Washer/Dryer available with detergent provided. Vacuum located in laundry area.</p>
+                                                <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase opacity-40">Laundry</span>
+                                                <p className="text-xs sm:text-sm">Washer/Dryer available with detergent provided. Vacuum located in laundry area.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -303,11 +353,11 @@ export default function CityGuidebook() {
                     </div>
                 </section>
                 {/* SECTION 05: CONNECT TO WIFI */}
-                <section id="wifi" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
-                    <div className="flex flex-col md:flex-row gap-16 items-start">
+                <section id="wifi" className="pt-24 sm:pt-32 pb-16 sm:pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-12 sm:gap-16 items-start">
 
                         {/* Left Side: Stock Image */}
-                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative shadow-sm">
+                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative shadow-sm">
                             <div
                                 className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-105"
                                 style={{ backgroundImage: `url('https://images.unsplash.com/photo-1551733592-220409806da7?q=80&w=1000')` }}
@@ -316,9 +366,9 @@ export default function CityGuidebook() {
 
                         {/* Right Side: Credentials */}
                         <div className="w-full md:w-7/12">
-                            <div className="flex flex-col gap-4 mb-16">
-                                <span className="text-5xl font-serif italic opacity-20">05</span>
-                                <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                            <div className="flex flex-col gap-4 mb-12 sm:mb-16">
+                                <span className="text-4xl sm:text-5xl font-serif italic opacity-20">05</span>
+                                <h3 className="text-2xl sm:text-4xl font-bold tracking-tighter leading-tight uppercase">
                                     Connect <br /> to WiFi
                                 </h3>
                             </div>
@@ -356,7 +406,7 @@ export default function CityGuidebook() {
                                             ? "bg-green-500/10 border-green-500/50 text-green-600 dark:text-green-400"
                                             : "bg-stone-100 dark:bg-stone-900 border-[var(--border)] group-hover:bg-[var(--fg)] group-hover:text-[var(--bg)]"
                                             }`}>
-                                            <span className="text-[10px] font-bold tracking-widest uppercase">
+                                            <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase">
                                                 {copied ? "Password Copied!" : "Tap to Copy Password"}
                                             </span>
                                         </div>
@@ -367,11 +417,11 @@ export default function CityGuidebook() {
                     </div>
                 </section>
                 {/* SECTION 06: LOGISTICS */}
-                <section id="logistics" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
-                    <div className="flex flex-col md:flex-row gap-16 items-start">
+                <section id="logistics" className="pt-24 sm:pt-32 pb-16 sm:pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-12 sm:gap-16 items-start">
 
                         {/* Left Side: Visual Anchor */}
-                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative shadow-sm">
+                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative shadow-sm">
                             <div
                                 className="w-full h-full bg-cover bg-center"
                                 style={{ backgroundImage: `url('https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=1000')` }}
@@ -380,9 +430,9 @@ export default function CityGuidebook() {
 
                         {/* Right Side: Content */}
                         <div className="w-full md:w-7/12">
-                            <div className="flex flex-col gap-4 mb-16">
-                                <span className="text-5xl font-serif italic opacity-20">06</span>
-                                <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                            <div className="flex flex-col gap-4 mb-12 sm:mb-16">
+                                <span className="text-4xl sm:text-5xl font-serif italic opacity-20">06</span>
+                                <h3 className="text-2xl sm:text-4xl font-bold tracking-tighter leading-tight uppercase">
                                     The <br /> Logistics
                                 </h3>
                             </div>
@@ -417,18 +467,18 @@ export default function CityGuidebook() {
                                     </div>
                                     <div className="border-l border-stone-100 dark:border-stone-800 ml-3 pl-8 space-y-8">
                                         {/* Arrival Cheat Sheet */}
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="p-4 rounded-xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)]">
+                                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                                            <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)]">
                                                 <span className="text-[9px] font-bold opacity-40 block uppercase">Parking Spot</span>
-                                                <span className="text-xl font-bold">293 (P4)</span>
+                                                <span className="text-lg sm:text-xl font-bold">293 (P4)</span>
                                             </div>
-                                            <div className="p-4 rounded-xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)]">
+                                            <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)]">
                                                 <span className="text-[9px] font-bold opacity-40 block uppercase">Building Code</span>
-                                                <span className="text-xl font-bold">2024#</span>
+                                                <span className="text-lg sm:text-xl font-bold">2024#</span>
                                             </div>
                                         </div>
 
-                                        <div className="space-y-4 text-lg text-stone-600 dark:text-stone-400 leading-relaxed">
+                                        <div className="space-y-3 sm:space-y-4 text-sm sm:text-lg text-stone-600 dark:text-stone-400 leading-relaxed">
                                             <p className="font-bold text-[var(--fg)] uppercase tracking-tight">Check in: 4:00 PM</p>
                                             <p>
                                                 Park in <span className="font-bold text-[var(--fg)]">Spot 293 on P4</span>.
@@ -467,11 +517,11 @@ export default function CityGuidebook() {
                     </div>
                 </section>
                 {/* SECTION 07: NOTES & SAFETY */}
-                <section id="notes" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
-                    <div className="flex flex-col md:flex-row gap-16 items-start">
+                <section id="notes" className="pt-24 sm:pt-32 pb-16 sm:pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-12 sm:gap-16 items-start">
 
                         {/* Rules Image/Visual */}
-                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative shadow-sm">
+                        <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative shadow-sm">
                             <div
                                 className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-110"
                                 style={{ backgroundImage: `url('https://images.unsplash.com/photo-1513584684374-8bdb7489feef?q=80&w=1000')` }}
@@ -481,14 +531,14 @@ export default function CityGuidebook() {
 
                         {/* Content */}
                         <div className="w-full md:w-7/12">
-                            <div className="flex flex-col gap-4 mb-16">
-                                <span className="text-5xl font-serif italic opacity-20">07</span>
-                                <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                            <div className="flex flex-col gap-4 mb-12 sm:mb-16">
+                                <span className="text-4xl sm:text-5xl font-serif italic opacity-20">07</span>
+                                <h3 className="text-2xl sm:text-4xl font-bold tracking-tighter leading-tight uppercase">
                                     A few notes <br /> for your stay
                                 </h3>
                             </div>
 
-                            <div className="space-y-24">
+                            <div className="space-y-16 sm:space-y-24">
                                 {/* SUB-SECTION: HOUSE RULES */}
                                 <div className="space-y-8">
                                     <div className="flex items-center gap-3">
@@ -496,7 +546,7 @@ export default function CityGuidebook() {
                                         <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40 text-[var(--fg)]">House Rules</span>
                                     </div>
 
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-12 gap-x-12 pl-8 border-l border-stone-100 dark:border-stone-800">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8 sm:gap-y-12 gap-x-12 pl-8 border-l border-stone-100 dark:border-stone-800">
                                         {[
                                             { id: "01", text: "No smoking or vaping." },
                                             { id: "02", text: "No unregistered guests." },
@@ -505,8 +555,8 @@ export default function CityGuidebook() {
                                             { id: "05", text: "Notify us of any damage as soon as possible." }
                                         ].map((rule) => (
                                             <div key={rule.id} className="space-y-3">
-                                                <span className="text-[10px] font-mono font-bold opacity-20 block">{rule.id}</span>
-                                                <p className="text-xl font-semibold tracking-tight leading-tight text-stone-700 dark:text-stone-300">
+                                                <span className="text-[9px] sm:text-[10px] font-mono font-bold opacity-20 block">{rule.id}</span>
+                                                <p className="text-lg sm:text-xl font-semibold tracking-tight leading-tight text-stone-700 dark:text-stone-300">
                                                     {rule.text}
                                                 </p>
                                             </div>
@@ -528,25 +578,25 @@ export default function CityGuidebook() {
                                         </p>
 
                                         {/* Emergency Locations (Hospital & Police) */}
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                                             {/* Hospital Card */}
                                             <a
                                                 href="https://www.google.com/maps/search/?api=1&query=Ascension+Saint+Thomas+Hospital+Midtown+Emergency"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="group p-6 rounded-[2rem] bg-stone-50 dark:bg-stone-900/40 border border-[var(--border)] hover:border-[var(--fg)] transition-all"
+                                                className="group p-4 sm:p-6 rounded-xl sm:rounded-[2rem] bg-stone-50 dark:bg-stone-900/40 border border-[var(--border)] hover:border-[var(--fg)] transition-all"
                                             >
-                                                <div className="flex justify-between items-start mb-6">
-                                                    <div className="p-2 rounded-lg bg-red-500/10 text-red-600"><Plus size={18} /></div>
-                                                    <ArrowUpRight size={18} className="opacity-20 group-hover:opacity-100 transition-opacity" />
+                                                <div className="flex justify-between items-start mb-4 sm:mb-6">
+                                                    <div className="p-2 rounded-lg bg-red-500/10 text-red-600"><Plus className="w-4 h-4 sm:w-4.5 sm:h-4.5" /></div>
+                                                    <ArrowUpRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 opacity-20 group-hover:opacity-100 transition-opacity" />
                                                 </div>
-                                                <span className="text-[10px] font-bold tracking-widest uppercase opacity-40 block mb-1">Emergency Room</span>
-                                                <p className="text-sm font-bold uppercase leading-tight">Saint Thomas Midtown</p>
-                                                <p className="text-xs opacity-60 mt-2 italic">2000 Church St, Nashville, TN 37203</p>
+                                                <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase opacity-40 block mb-1">Emergency Room</span>
+                                                <p className="text-xs sm:text-sm font-bold uppercase leading-tight">Saint Thomas Midtown</p>
+                                                <p className="text-[11px] sm:text-xs opacity-60 mt-2 italic">2000 Church St, Nashville, TN 37203</p>
 
                                                 {/* Added Clickable Phone Number */}
-                                                <div className="mt-4 pt-4 border-t border-stone-200/50 dark:border-stone-700/50">
-                                                    <span onClick={(e) => { e.preventDefault(); window.location.href = 'tel:6152845555'; }} className="text-xs font-bold hover:text-red-600 transition-colors">
+                                                <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-stone-200/50 dark:border-stone-700/50">
+                                                    <span onClick={(e) => { e.preventDefault(); window.location.href = 'tel:6152845555'; }} className="text-xs font-bold hover:text-red-600 transition-colors cursor-pointer">
                                                         (615) 284-5555
                                                     </span>
                                                 </div>
@@ -557,19 +607,19 @@ export default function CityGuidebook() {
                                                 href="https://www.google.com/maps/search/?api=1&query=Midtown+Hills+Police+Precinct+Nashville"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="group p-6 rounded-[2rem] bg-stone-50 dark:bg-stone-900/40 border border-[var(--border)] hover:border-[var(--fg)] transition-all"
+                                                className="group p-4 sm:p-6 rounded-xl sm:rounded-[2rem] bg-stone-50 dark:bg-stone-900/40 border border-[var(--border)] hover:border-[var(--fg)] transition-all"
                                             >
-                                                <div className="flex justify-between items-start mb-6">
-                                                    <div className="p-2 rounded-lg bg-blue-500/10 text-blue-600"><Shield size={18} /></div>
-                                                    <ArrowUpRight size={18} className="opacity-20 group-hover:opacity-100 transition-opacity" />
+                                                <div className="flex justify-between items-start mb-4 sm:mb-6">
+                                                    <div className="p-2 rounded-lg bg-blue-500/10 text-blue-600"><Shield className="w-4 h-4 sm:w-4.5 sm:h-4.5" /></div>
+                                                    <ArrowUpRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 opacity-20 group-hover:opacity-100 transition-opacity" />
                                                 </div>
-                                                <span className="text-[10px] font-bold tracking-widest uppercase opacity-40 block mb-1">Police Precinct</span>
-                                                <p className="text-sm font-bold uppercase leading-tight">Midtown Hills Precinct</p>
-                                                <p className="text-xs opacity-60 mt-2 italic">1441 12th Ave S, Nashville, TN 37203</p>
+                                                <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase opacity-40 block mb-1">Police Precinct</span>
+                                                <p className="text-xs sm:text-sm font-bold uppercase leading-tight">Midtown Hills Precinct</p>
+                                                <p className="text-[11px] sm:text-xs opacity-60 mt-2 italic">1441 12th Ave S, Nashville, TN 37203</p>
 
                                                 {/* Added Clickable Phone Number */}
-                                                <div className="mt-4 pt-4 border-t border-stone-200/50 dark:border-stone-700/50">
-                                                    <span onClick={(e) => { e.preventDefault(); window.location.href = 'tel:6158801411'; }} className="text-xs font-bold hover:text-blue-600 transition-colors">
+                                                <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-stone-200/50 dark:border-stone-700/50">
+                                                    <span onClick={(e) => { e.preventDefault(); window.location.href = 'tel:6158801411'; }} className="text-xs font-bold hover:text-blue-600 transition-colors cursor-pointer">
                                                         (615) 880-1411
                                                     </span>
                                                 </div>
@@ -598,20 +648,20 @@ export default function CityGuidebook() {
                                 </div>
 
                                 {/* HEADS UP: ROVER / PETS */}
-                                <div className="p-10 rounded-[2.5rem] bg-stone-50 dark:bg-stone-900/40 border border-[var(--border)] relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-8 opacity-[0.03] dark:opacity-[0.05] group-hover:scale-110 transition-transform duration-700">
-                                        <Dog size={120} />
+                                <div className="p-6 sm:p-10 rounded-xl sm:rounded-[2.5rem] bg-stone-50 dark:bg-stone-900/40 border border-[var(--border)] relative overflow-hidden group">
+                                    <div className="absolute top-0 right-0 p-6 sm:p-8 opacity-[0.03] dark:opacity-[0.05] group-hover:scale-110 transition-transform duration-700">
+                                        <Dog className="w-24 h-24 sm:w-28 sm:h-28" />
                                     </div>
-                                    <div className="relative flex flex-col gap-6 max-w-xl">
+                                    <div className="relative flex flex-col gap-4 sm:gap-6 max-w-xl">
                                         <div className="flex items-center gap-3">
                                             <div className="p-2 rounded-full bg-[var(--fg)] text-[var(--bg)]">
-                                                <Dog size={16} strokeWidth={2.5} />
+                                                <Dog className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={2.5} />
                                             </div>
-                                            <span className="text-[10px] font-bold tracking-widest uppercase opacity-60">A note on furry friends</span>
+                                            <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase opacity-60">A note on furry friends</span>
                                         </div>
-                                        <p className="text-lg leading-relaxed text-stone-600 dark:text-stone-400">
+                                        <p className="text-sm sm:text-lg leading-relaxed text-stone-600 dark:text-stone-400">
                                             While pets aren&apos;t allowed in this specific unit, we have you covered.
-                                            owner is a <span className="text-[var(--fg)] font-bold">certified dog sitter on Rover</span>.
+                                            Anu is a <span className="text-[var(--fg)] font-bold">certified dog sitter on Rover</span>.
                                             If your pup needs a vacation of their own while you&apos;re here, let us know and we&apos;ll check the schedule!
                                         </p>
                                     </div>
@@ -622,29 +672,29 @@ export default function CityGuidebook() {
                 </section>
 
                 {/* SECTION 08: BEFORE YOU GO */}
-                <section id="go" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
-                    <div className="flex flex-col md:flex-row gap-16 items-start">
+                <section id="go" className="pt-24 sm:pt-32 pb-16 sm:pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-12 sm:gap-16 items-start">
 
                         {/* Content Side */}
                         <div className="w-full md:w-7/12">
                             {/* Header with 11AM Reminder */}
-                            <div className="flex flex-col gap-4 mb-16">
-                                <span className="text-5xl font-serif italic opacity-20">08</span>
+                            <div className="flex flex-col gap-4 mb-12 sm:mb-16">
+                                <span className="text-4xl sm:text-5xl font-serif italic opacity-20">08</span>
                                 <div className="space-y-2">
-                                    <h3 className="text-4xl font-bold tracking-tighter leading-tight uppercase">
+                                    <h3 className="text-2xl sm:text-4xl font-bold tracking-tighter leading-tight uppercase">
                                         Departure Checklist
                                     </h3>
-                                    <p className="text-2xl font-medium tracking-tight">
+                                    <p className="text-lg sm:text-2xl font-medium tracking-tight">
                                         Check out is 11:00 AM.
                                     </p>
-                                    <p>
+                                    <p className="text-sm sm:text-base">
                                         We hope you enjoyed your stay with us!
                                     </p>
                                 </div>
                             </div>
 
                             {/* Checklist Grid */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-12 gap-x-12 pl-8 border-l border-stone-100 dark:border-stone-800">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8 sm:gap-y-12 gap-x-12 pl-8 border-l border-stone-100 dark:border-stone-800">
                                 {[
                                     {
                                         icon: <Wind size={20} />,
@@ -768,43 +818,43 @@ export default function CityGuidebook() {
                     </div>
                 </section>
                 {/* SECTION 10: NEAREST SHOPPING */}
-                <section id="shopping" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
-                    <div className="flex flex-col gap-16">
+                <section id="shopping" className="pt-24 sm:pt-32 pb-16 sm:pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col gap-12 sm:gap-16">
 
                         {/* Section Header */}
                         <div className="flex flex-col gap-4">
-                            <span className="text-5xl font-serif italic opacity-20">10</span>
-                            <h3 className="text-4xl font-bold tracking-tighter uppercase">Nearest Shopping</h3>
+                            <span className="text-4xl sm:text-5xl font-serif italic opacity-20">10</span>
+                            <h3 className="text-2xl sm:text-4xl font-bold tracking-tighter uppercase">Nearest Shopping</h3>
                         </div>
 
                         {/* Shopping List */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-stretch">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 items-stretch">
 
                             {/* Recommendation 1: Grocery */}
-                            <div className="flex flex-col h-full space-y-6">
-                                <div className="p-3 w-fit rounded-2xl bg-stone-50 dark:bg-stone-900 border border-[var(--border)]">
-                                    <ShoppingCart size={20} className="opacity-40" />
+                            <div className="flex flex-col h-full space-y-4 sm:space-y-6">
+                                <div className="p-3 w-fit rounded-lg sm:rounded-2xl bg-stone-50 dark:bg-stone-900 border border-[var(--border)]">
+                                    <ShoppingCart size={18} className="opacity-40" />
                                 </div>
 
-                                <div className="flex-grow space-y-4">
+                                <div className="flex-grow space-y-3 sm:space-y-4">
                                     <div className="space-y-1">
-                                        <h4 className="text-lg font-bold uppercase leading-tight">
+                                        <h4 className="text-sm sm:text-lg font-bold uppercase leading-tight">
                                             Publix Super Market <br /> at Capitol View
                                         </h4>
-                                        <p className="text-[11px] opacity-60 uppercase tracking-wider leading-relaxed">
+                                        <p className="text-[10px] sm:text-[11px] opacity-60 uppercase tracking-wider leading-relaxed">
                                             1010 Dr. Martin L. King Jr. Blvd <br />
                                             Nashville, TN 37206
                                         </p>
                                     </div>
                                     <a href="tel:6152596072" className="inline-flex items-center gap-2 text-xs font-bold hover:text-[var(--fg)] opacity-80 hover:opacity-100 transition-all underline decoration-[var(--border)] underline-offset-4">
-                                        <Phone size={12} className="opacity-40" />
+                                        <Phone className="w-3 h-3 opacity-40" />
                                         (615) 259-6072
                                     </a>
                                 </div>
 
-                                <div className="pt-4 border-t border-[var(--border)] space-y-4">
-                                    <div className="space-y-2 min-h-[110px]">
-                                        <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
+                                <div className="pt-3 sm:pt-4 border-t border-[var(--border)] space-y-3 sm:space-y-4">
+                                    <div className="space-y-2 min-h-[80px] sm:min-h-[110px]">
+                                        <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
                                         <div className="text-xs space-y-1">
                                             <p className="font-medium uppercase">Monday to Sunday</p>
                                             <p className="opacity-60 italic text-[11px]">7:00 AM – 10:00 PM</p>
@@ -814,9 +864,9 @@ export default function CityGuidebook() {
                                         href="https://www.google.com/maps/search/?api=1&query=Publix+Super+Market+at+Capitol+View"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[var(--fg)] opacity-40 hover:opacity-100 transition-opacity"
+                                        className="inline-flex items-center gap-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-[var(--fg)] opacity-40 hover:opacity-100 transition-opacity"
                                     >
-                                        <MapPin size={12} /> Open in Maps
+                                        <MapPin className="w-3 h-3" /> Open in Maps
                                     </a>
                                 </div>
                             </div>
@@ -917,21 +967,21 @@ export default function CityGuidebook() {
                     </div>
                 </section>
                 {/* SECTION 11: LOCAL RECOMMENDATIONS */}
-                <section id="local" className="pt-32 pb-24 border-t border-[var(--border)] scroll-mt-24">
-                    <div className="flex flex-col gap-16">
+                <section id="local" className="pt-24 sm:pt-32 pb-16 sm:pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col gap-12 sm:gap-16">
 
                         {/* Section Header */}
                         <div className="flex flex-col gap-4">
-                            <span className="text-5xl font-serif italic opacity-20">11</span>
+                            <span className="text-4xl sm:text-5xl font-serif italic opacity-20">11</span>
                             <div className="flex items-center gap-3">
-                                <MapPin size={18} strokeWidth={1.5} className="opacity-40" />
-                                <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">Palindrome's List</span>
+                                <MapPin className="w-4 h-4 sm:w-4.5 sm:h-4.5 opacity-40" strokeWidth={1.5} />
+                                <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">Palindrome's List</span>
                             </div>
-                            <h3 className="text-4xl font-bold tracking-tighter uppercase">Local Recommendations</h3>
+                            <h3 className="text-2xl sm:text-4xl font-bold tracking-tighter uppercase">Local Recommendations</h3>
                         </div>
 
                         {/* Recommendations Grid - Aligned */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 sm:gap-x-12 gap-y-12 sm:gap-y-16">
                             {[
                                 {
                                     name: "Broadway",
@@ -1009,20 +1059,20 @@ export default function CityGuidebook() {
                     </div>
                 </section>
                 {/* FINAL FOOTER / THANK YOU */}
-                <footer className="mt-32 border-t border-[var(--border)]">
+                <footer className="mt-24 sm:mt-32 border-t border-[var(--border)]">
                     {/* Cinematic Image Container */}
-                    <div className="relative w-full h-[60vh] overflow-hidden group">
+                    <div className="relative w-full h-[40vh] sm:h-[60vh] overflow-hidden group">
                         <img
                             src="https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&q=80&w=2000"
                             alt="Nashville Skyline at Dusk"
                             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                         />
                         {/* Dark Overlay for Typography Legibility */}
-                        <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center px-6">
-                            <span className="text-white/60 text-[10px] font-bold tracking-[0.4em] uppercase mb-4">
+                        <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center px-4 sm:px-6">
+                            <span className="text-white/60 text-[9px] sm:text-[10px] font-bold tracking-[0.4em] uppercase mb-2 sm:mb-4">
                                 Nashville, Tennessee
                             </span>
-                            <h2 className="text-white text-6xl md:text-8xl font-bold tracking-tighter leading-[0.85] uppercase">
+                            <h2 className="text-white text-4xl sm:text-6xl md:text-8xl font-bold tracking-tighter leading-[0.85] uppercase">
                                 Thank you <br />
                                 <span className="opacity-80">for staying</span> <br />
                                 with us
@@ -1031,9 +1081,9 @@ export default function CityGuidebook() {
                     </div>
 
                     {/* Final Message & Sign-off */}
-                    <div className="max-w-2xl mx-auto py-12 px-6 text-center space-y-12">
-                        <div className="space-y-6">
-                            <p className="text-lg font-medium leading-relaxed opacity-80">
+                    <div className="max-w-2xl mx-auto py-8 sm:py-12 px-4 sm:px-6 text-center space-y-8 sm:space-y-12">
+                        <div className="space-y-4 sm:space-y-6">
+                            <p className="text-sm sm:text-lg font-medium leading-relaxed opacity-80">
                                 Thank you for choosing to stay with Palindrome
                                 Projects, we hope you had an amazing time and that
                                 we will see you again very soon!
@@ -1041,7 +1091,7 @@ export default function CityGuidebook() {
                         </div>
 
                         {/* The Cursive Signature - No extra space, perfectly centered */}
-                        <div className="pt opacity-20 text-[9px] font-bold uppercase tracking-[0.3em] leading-loose">
+                        <div className="pt opacity-20 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em] leading-loose">
                             Sentral Sobro
                             <br />
                             516 Lea Ave, Unit 1018, Nashville, TN 37203

@@ -35,7 +35,7 @@ export default function Home() {
           whileInView={{ opacity: 1 }}
           className="text-3xl md:text-5xl font-light leading-tight tracking-tight text-stone-500"
         >
-          Hello from the team at Palindrome Projects! We are a familly-owned small business based in Chicago, IL.
+          Hello from the team at Palindrome Projects! We are a family-owned small business based in Chicago, IL.
           <br></br>We specialize in providing high-quality services to our customers—specifically rental housing and short-term stays.
         </motion.p>
       </section>

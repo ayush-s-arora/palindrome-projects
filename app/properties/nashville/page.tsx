@@ -110,7 +110,7 @@ export default function CityGuidebook() {
                     </motion.div>
 
                     <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 1 }} className="my-8 sm:my-12 aspect-video bg-stone-200 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-sm">
-                        <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1512918766674-51610492642a?q=80&w=1200')` }}>
+                        <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: `url('/nashville-24.jpeg')` }}>
                             <div className="w-full h-full bg-black/5 dark:bg-black/20" />
                         </div>
                     </motion.div>
@@ -176,8 +176,8 @@ export default function CityGuidebook() {
                         {/* Host Image/Visual */}
                         <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative group">
                             <div
-                                className="w-full h-full bg-cover bg-center grayscale hover:grayscale-0 transition-all duration-700"
-                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000')` }}
+                                className="w-full h-full bg-cover bg-center hover:grayscale-0 transition-all duration-700"
+                                style={{ backgroundImage: `url('/nashville-0.jpeg')` }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
@@ -193,7 +193,7 @@ export default function CityGuidebook() {
                             </div>
                             <div className="space-y-6 text-stone-600 dark:text-stone-400 leading-relaxed text-lg">
                                 <p>Hello from the team at Palindrome Projects! We are a
-                                    familly-owned small business based in Chicago, IL.</p>
+                                    family-owned small business based in Chicago, IL.</p>
                                 <p>Our cozy apartment is located in the heart of Nashville,
                                     offering a perfect blend of comfort and convenience.
                                     Whether you're here for work or leisure, we hope you feel
@@ -222,7 +222,7 @@ export default function CityGuidebook() {
                         <div className="w-full aspect-video sm:aspect-[21/9] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative group">
                             <div
                                 className="w-full h-full bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
-                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2000')` }}
+                                style={{ backgroundImage: `url('/nashville-3.jpeg')` }}
                             />
                             <div className="absolute inset-0 bg-black/10 dark:bg-black/20" />
                         </div>
@@ -278,7 +278,7 @@ export default function CityGuidebook() {
                         <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative shadow-sm">
                             <div
                                 className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-110"
-                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1000')` }}
+                                style={{ backgroundImage: `url('/nashville-9.jpeg')` }}
                             />
                         </div>
 
@@ -360,7 +360,7 @@ export default function CityGuidebook() {
                         <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative shadow-sm">
                             <div
                                 className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-105"
-                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1551733592-220409806da7?q=80&w=1000')` }}
+                                style={{ backgroundImage: `url('/laptop.jpeg')` }}
                             />
                         </div>
 
@@ -424,7 +424,7 @@ export default function CityGuidebook() {
                         <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative shadow-sm">
                             <div
                                 className="w-full h-full bg-cover bg-center"
-                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=1000')` }}
+                                style={{ backgroundImage: `url('/nashville-15.jpeg')` }}
                             />
                         </div>
 
@@ -433,7 +433,7 @@ export default function CityGuidebook() {
                             <div className="flex flex-col gap-4 mb-12 sm:mb-16">
                                 <span className="text-4xl sm:text-5xl font-serif italic opacity-20">06</span>
                                 <h3 className="text-2xl sm:text-4xl font-bold tracking-tighter leading-tight uppercase">
-                                    The <br /> Logistics
+                                    The Logistics
                                 </h3>
                             </div>
 
@@ -524,7 +524,7 @@ export default function CityGuidebook() {
                         <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative shadow-sm">
                             <div
                                 className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-110"
-                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1513584684374-8bdb7489feef?q=80&w=1000')` }}
+                                style={{ backgroundImage: `url('/nashville-34.jpeg')` }}
                             />
                             <div className="absolute inset-0 bg-stone-900/10" />
                         </div>
@@ -744,7 +744,7 @@ export default function CityGuidebook() {
                         <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-[2.5rem] overflow-hidden relative shadow-sm">
                             <div
                                 className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-105"
-                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=1000')` }}
+                                style={{ backgroundImage: `url('/nashville-19.jpeg')` }}
                             />
                             <div className="absolute inset-0 bg-stone-900/5" />
                         </div>
@@ -804,7 +804,7 @@ export default function CityGuidebook() {
                         <div className="w-full md:w-5/12 aspect-[2/3] bg-stone-100 dark:bg-stone-900 rounded-[3rem] overflow-hidden relative shadow-2xl">
                             <div
                                 className="w-full h-full bg-cover bg-center transition-transform duration-[2000ms] hover:scale-110"
-                                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1590059530490-67df76f9f30e?q=80&w=1000')` }}
+                                style={{ backgroundImage: `url('/nashville-city.jpeg')` }}
                             />
                             {/* Subtle Overlay for Depth */}
                             <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 via-transparent to-transparent" />
@@ -1063,8 +1063,7 @@ export default function CityGuidebook() {
                     {/* Cinematic Image Container */}
                     <div className="relative w-full h-[40vh] sm:h-[60vh] overflow-hidden group">
                         <img
-                            src="https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&q=80&w=2000"
-                            alt="Nashville Skyline at Dusk"
+                            src="/nashville-16.jpeg"
                             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                         />
                         {/* Dark Overlay for Typography Legibility */}

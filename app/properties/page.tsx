@@ -7,7 +7,7 @@ const PROPERTIES = [
     id: 'nashville',
     name: 'Nashville',
     description: 'Modern living in the heart of Music City.',
-    image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1000', // Potted plant/interior vibe
+    image: '/nashville-24.jpeg',
   },
 ];
 

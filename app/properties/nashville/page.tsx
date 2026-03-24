@@ -312,7 +312,7 @@ export default function CityGuidebook() {
                                             </p>
                                         </div>
 
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-4">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-4">
                                             <div className="space-y-1">
                                                 <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase opacity-40">Bed & Bath</span>
                                                 <p className="text-xs sm:text-sm">Extra blankets in bedroom basket. Additional towels, iron, and steamer in the closet.</p>
@@ -470,18 +470,18 @@ export default function CityGuidebook() {
                                         <div className="grid grid-cols-2 gap-3 sm:gap-4">
                                             <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)]">
                                                 <span className="text-[9px] font-bold opacity-40 block uppercase">Parking Spot</span>
-                                                <span className="text-lg sm:text-xl font-bold">293 (P4)</span>
+                                                <span className="text-lg sm:text-xl font-bold">259 (P4)</span>
                                             </div>
                                             <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)]">
                                                 <span className="text-[9px] font-bold opacity-40 block uppercase">Building Code</span>
-                                                <span className="text-lg sm:text-xl font-bold">2024#</span>
+                                                <span className="text-lg sm:text-xl font-bold">1126#</span>
                                             </div>
                                         </div>
 
                                         <div className="space-y-3 sm:space-y-4 text-sm sm:text-lg text-stone-600 dark:text-stone-400 leading-relaxed">
                                             <p className="font-bold text-[var(--fg)] uppercase tracking-tight">Check in: 4:00 PM</p>
                                             <p>
-                                                Park in <span className="font-bold text-[var(--fg)]">Spot 293 on P4</span>.
+                                                Park in <span className="font-bold text-[var(--fg)]">Spot 259 on P4</span>.
                                                 Enter the building using the code above and take the elevator to <span className="font-bold text-[var(--fg)]">P3</span>.
                                             </p>
                                             <p>
@@ -699,7 +699,15 @@ export default function CityGuidebook() {
                                     {
                                         icon: <Wind size={20} />,
                                         title: "Laundry",
-                                        desc: "Please place all used towels, dishcloths and bedding in the hamper provided (in the bedroom closet), and we will ensure they are laundered."
+                                        desc: (
+                                            <>
+                                                Please place all used towels, dishcloths and bedding in the hamper provided (in the bedroom closet), and we will ensure they are laundered.{" "}
+                                                <strong>
+                                                    Please also load bedding into the washing machine and start the wash cycle.
+                                                </strong>{" "}
+                                                Detergent pods are located next to the washing machine!
+                                            </>
+                                        )
                                     },
                                     {
                                         icon: <Lightbulb size={20} />,
@@ -1055,6 +1063,85 @@ export default function CityGuidebook() {
                             >
                                 make beautiful memories
                             </p>
+                        </div>
+                    </div>
+                </section>
+                {/* SECTION 12: A LITTLE THANK YOU */}
+                <section id="perks" className="pt-24 sm:pt-32 pb-16 sm:pb-24 border-t border-[var(--border)] scroll-mt-24">
+                    <div className="flex flex-col md:flex-row gap-12 sm:gap-16 items-start">
+
+                        {/* Left Side: Header */}
+                        <div className="w-full md:w-5/12">
+                            <div className="flex flex-col gap-4">
+                                <span className="text-5xl font-serif italic opacity-20">12</span>
+                                <div className="flex items-center gap-3">
+                                    <Sparkles size={18} strokeWidth={1.5} className="opacity-40" />
+                                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">Guest Exclusive</span>
+                                </div>
+                                <h3 className="text-4xl font-bold tracking-tighter uppercase leading-[0.9]">
+                                    A Little <br /> Thank You
+                                </h3>
+                                <p className="text-xs font-bold tracking-[0.3em] uppercase opacity-60 mt-2">
+                                    For being our guests
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Right Side: Offer & Hours */}
+                        <div className="w-full md:w-7/12 space-y-12">
+                            <div className="pl-8 border-l border-[var(--border)] space-y-8">
+                                <p className="text-lg font-medium leading-relaxed text-stone-600 dark:text-stone-400">
+                                    To show our appreciation, please enjoy <span className="text-[var(--fg)] font-bold underline decoration-[var(--border)] underline-offset-4">10% off</span> at
+                                    Tipsy Scoop and Kosho! Both are conveniently connected to our building.
+                                </p>
+
+                                {/* Voucher Callout */}
+                                <div className="p-6 bg-stone-50 dark:bg-stone-900/40 rounded-2xl border border-[var(--border)]">
+                                    <span className="text-[10px] font-bold tracking-widest uppercase opacity-40 block mb-2">Voucher Required</span>
+                                    <p className="text-sm leading-relaxed">
+                                        Please make sure you collect a voucher from the <span className="font-bold">Front Desk</span> before heading over to Kosho to redeem your discount.
+                                    </p>
+                                </div>
+
+                                {/* Hours Grid */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 pt-4">
+
+                                    {/* Tipsy Scoop */}
+                                    <div className="space-y-4">
+                                        <div className="flex items-center gap-2 opacity-40">
+                                            <Store size={16} />
+                                            <span className="text-[10px] font-bold tracking-widest uppercase">Tipsy Scoop</span>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
+                                            <p className="text-xs font-medium uppercase">Thursday to Sunday</p>
+                                            <p className="opacity-60 italic text-[11px]">1:00 PM – 9:00 PM</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Kosho */}
+                                    <div className="space-y-4">
+                                        <div className="flex items-center gap-2 opacity-40">
+                                            <Utensils size={16} />
+                                            <span className="text-[10px] font-bold tracking-widest uppercase">Kosho</span>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Hours</p>
+                                            <div className="space-y-2">
+                                                <div className="space-y-0.5">
+                                                    <p className="text-xs font-medium uppercase">Sunday to Thursday</p>
+                                                    <p className="opacity-60 italic text-[11px]">5:00 PM – 10:00 PM</p>
+                                                </div>
+                                                <div className="space-y-0.5">
+                                                    <p className="text-xs font-medium uppercase">Friday to Saturday</p>
+                                                    <p className="opacity-60 italic text-[11px]">5:00 PM – 11:00 PM</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>

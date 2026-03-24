@@ -15,7 +15,7 @@ const SECTIONS = [
     { id: 'things', title: 'THINGS TO KNOW', num: '04' },
     { id: 'wifi', title: 'CONNECT TO WIFI', num: '05' },
     { id: 'logistics', title: 'BEFORE YOUR STAY, CHECK IN, & CHECK OUT', num: '06' },
-    { id: 'notes', title: 'A FEW NOTES FOR YOUR STAY (including emergency info)', num: '07' },
+    { id: 'notes', title: 'A FEW NOTES FOR YOUR STAY (INCLUDING EMERGENCY INFO)', num: '07' },
     { id: 'go', title: 'DEPARTURE CHECKLIST', num: '08' },
     { id: 'area', title: 'ABOUT THE AREA', num: '09' },
     { id: 'shopping', title: 'NEAREST SHOPPING', num: '10' },
@@ -423,7 +423,7 @@ export default function CityGuidebook() {
                         <div className="w-full md:w-5/12 aspect-[3/4] bg-stone-100 dark:bg-stone-900 rounded-2xl sm:rounded-[2.5rem] overflow-hidden relative shadow-sm">
                             <div
                                 className="w-full h-full bg-cover bg-center"
-                                style={{ backgroundImage: `url('/nashville-15.jpeg')` }}
+                                style={{ backgroundImage: `url('/nashville-43.jpeg')` }}
                             />
                         </div>
 

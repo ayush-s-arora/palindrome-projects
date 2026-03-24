@@ -6,12 +6,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
-  const [mounted, setMounted] = useState(false);
   const [showProps, setShowProps] = useState(false);
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => setMounted(true), []);
 
   // Close dropdown on any navigation
   useEffect(() => {
@@ -32,8 +29,6 @@ export default function Header() {
       document.removeEventListener('touchstart', handleClickOutside);
     };
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <header className="fixed top-0 w-full z-50 border-b border-[var(--border)] bg-[var(--bg)]/95 backdrop-blur-md">

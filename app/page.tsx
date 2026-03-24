@@ -24,14 +24,14 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-7xl md:text-[12rem] font-bold tracking-tighter text-white"
+            className="text-4xl sm:text-6xl md:text-[12rem] font-bold tracking-tighter text-white"
           >
             Palindrome Projects
           </motion.h1>
         </div>
       </section>
 
-      <section className="max-w-3xl mx-auto py-40 px-6">
+      <section className="max-w-3xl mx-auto py-20 md:py-40 px-6">
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

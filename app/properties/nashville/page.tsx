@@ -51,7 +51,7 @@ export default function CityGuidebook() {
     };
 
     return (
-        <main className="min-h-screen bg-[var(--bg)] text-[var(--fg)] pt-20 sm:pt-24 pb-32 sm:pb-40 transition-colors duration-500">
+        <main className="min-h-screen bg-[var(--bg)] text-[var(--fg)] pt-24 sm:pt-28 pb-32 sm:pb-40 transition-colors duration-500">
             {/* Mobile Section Navigation */}
             <button
                 onClick={() => setShowNav(!showNav)}
@@ -100,7 +100,7 @@ export default function CityGuidebook() {
                 </div>
             </motion.div>
 
-            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <div className="max-w-4xl mx-auto px-6 sm:px-8">
 
                 {/* SECTION 01: WELCOME & RECEPTION */}
                 <section id="welcome" className="text-center mb-24">
@@ -157,7 +157,7 @@ export default function CityGuidebook() {
                             <span className="text-base font-bold tracking-[0.2em] text-stone-700 uppercase">Table of Contents</span>
                             <span className="text-sm text-stone-400 italic">— click any section to jump</span>
                         </div>
-                        <div className="grid grid-cols-2 gap-x-8 sm:gap-x-16 gap-y-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-6 sm:gap-y-8">
                             {SECTIONS.map((item) => (
                                 <button key={item.id} onClick={() => scrollTo(item.id)} className="flex items-start gap-3 sm:gap-4 group text-left transition-all hover:translate-x-1">
                                     <span className={`text-2xl sm:text-4xl font-serif italic transition-all shrink-0 ${item.num === '06' ? 'opacity-100' : 'opacity-20 group-hover:opacity-100'}`}>{item.num}</span>
@@ -1173,7 +1173,7 @@ export default function CityGuidebook() {
                     </div>
 
                     {/* Final Message & Sign-off */}
-                    <div className="max-w-2xl mx-auto py-8 sm:py-12 px-4 sm:px-6 text-center space-y-8 sm:space-y-12">
+                    <div className="max-w-2xl mx-auto py-8 sm:py-12 px-6 sm:px-8 text-center space-y-8 sm:space-y-12">
                         <div className="space-y-4 sm:space-y-6">
                             <p className="text-base sm:text-lg font-medium leading-relaxed opacity-80">
                                 Thank you for choosing to stay with Palindrome

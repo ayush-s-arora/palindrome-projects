@@ -21,7 +21,7 @@ export default function PropertiesPage() {
         transition={{ duration: 0.8 }}
         className="mb-24 max-w-2xl"
       >
-        <span className="text-xs tracking-[0.3em] uppercase opacity-50 mb-4 block">Our Portfolio</span>
+        <span className="text-xs tracking-[0.3em] uppercase text-stone-500 mb-4 block">Our Portfolio</span>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8">
           Local stays, curated for you.
         </h1>

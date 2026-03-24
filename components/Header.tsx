@@ -62,7 +62,7 @@ export default function Header() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 5 }}
-                  className="absolute top-full right-0 mt-2 w-48 bg-[var(--bg)] border border-[var(--border)] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] p-2 z-[999] overflow-hidden"
+                  className="absolute top-full right-0 mt-2 w-56 bg-[var(--bg)] border border-[var(--border)] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] p-2 z-[999] overflow-hidden"
                 >
                   <div className="flex flex-col">
                     <Link
@@ -71,6 +71,15 @@ export default function Header() {
                       className="px-4 py-3 text-sm hover:bg-[var(--fg)]/8 rounded-xl transition-colors font-medium flex justify-between items-center group/item"
                     >
                       Nashville
+                      <span className="opacity-0 group-hover/item:opacity-100 transition-opacity text-xs">→</span>
+                    </Link>
+                    <div className="mx-2 my-1 h-px bg-[var(--border)]" />
+                    <Link
+                      href="/properties"
+                      onClick={() => setShowProps(false)}
+                      className="px-4 py-3 text-sm hover:bg-[var(--fg)]/8 rounded-xl transition-colors font-medium flex justify-between items-center group/item text-stone-500"
+                    >
+                      View All Properties
                       <span className="opacity-0 group-hover/item:opacity-100 transition-opacity text-xs">→</span>
                     </Link>
                   </div>

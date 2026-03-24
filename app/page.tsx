@@ -1,5 +1,7 @@
 "use client";
 import { motion } from 'framer-motion';
+import { Store } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -38,6 +40,21 @@ export default function Home() {
           Hello from the team at Palindrome Projects! We are a family-owned small business based in Chicago, IL.
           <br></br>We specialize in providing high-quality services to our customers—specifically rental housing and short-term stays.
         </motion.p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="mt-16"
+        >
+          <Link
+            href="https://www.etsy.com/shop/PalindromeProj"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[var(--border)] text-sm font-semibold tracking-widest uppercase hover:bg-[var(--fg)] hover:text-[var(--bg)] transition-all"
+          >
+            Visit us on Etsy <Store size={14} />
+          </Link>
+        </motion.div>
       </section>
     </main>
   );

@@ -7,7 +7,7 @@ const PROPERTIES = [
     id: 'nashville',
     name: 'Nashville',
     description: 'Modern living in the heart of Music City.',
-    image: '/nashville-24.jpeg',
+    image: '/nashville-4.jpeg',
   },
 ];
 

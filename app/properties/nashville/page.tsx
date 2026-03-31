@@ -109,29 +109,30 @@ export default function CityGuidebook() {
                         <p className="text-sm tracking-[0.4em] uppercase text-stone-500 font-medium">FROM PALINDROME PROJECTS</p>
                     </motion.div>
 
-                    <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 1 }} className="my-8 sm:my-12 flex justify-center">
-                        <div className="w-full sm:w-2/3 md:w-1/2 aspect-[9/16] rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-sm relative">
-                            <img src="/nashville-4.jpeg" className="w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-black/5 dark:bg-black/20" />
-                        </div>
+                    {/* Image — cropped from top only so address stays visible */}
+                    <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 1 }} className="mt-8 sm:mt-12 aspect-[4/6] rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-sm">
+                        <img src="/nashville-4.jpeg" className="w-full h-full object-cover object-bottom" />
                     </motion.div>
 
-                    <Link href="https://maps.app.goo.gl/Ds34kPRXzyV1Jf8P8" target="_blank" rel="noopener noreferrer" className="inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-6 px-6 sm:px-10 py-5 sm:py-8 bg-stone-100 dark:bg-stone-900 rounded-xl sm:rounded-[2rem] border border-[var(--border)] text-left hover:bg-stone-200 transition-colors w-full sm:w-auto mb-10 sm:mb-14">
-                        <MapPin size={22} className="text-stone-400 shrink-0" />
-                        <div className="flex flex-col gap-1">
-                            <span className="text-base sm:text-lg font-semibold leading-tight tracking-tight">Sentral Sobro</span>
-                            <span className="text-sm sm:text-base text-stone-500">516 Lea Ave, Unit 1018, Nashville, TN 37203</span>
-                        </div>
-                    </Link>
+                    {/* Address */}
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.6 }} className="mt-4 text-left">
+                        <Link href="https://maps.app.goo.gl/Ds34kPRXzyV1Jf8P8" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 px-6 py-5 bg-stone-100 dark:bg-stone-900 rounded-2xl border border-[var(--border)] hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors">
+                            <MapPin size={20} className="text-stone-400 shrink-0" />
+                            <div className="flex flex-col gap-0.5">
+                                <span className="text-base font-semibold leading-tight tracking-tight">Sentral Sobro</span>
+                                <span className="text-sm text-stone-500 underline underline-offset-2 decoration-stone-300">516 Lea Ave, Unit 1018, Nashville, TN 37203</span>
+                            </div>
+                        </Link>
+                    </motion.div>
 
                     {/* Highlights Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 sm:mt-8 mb-12 sm:mb-16">
                         {HIGHLIGHTS.map((h, i) => (
-                            <div key={i} className="flex flex-col items-center text-center p-6 sm:p-8 border border-[var(--border)] rounded-2xl sm:rounded-3xl bg-stone-50 dark:bg-stone-900/50 min-h-[140px] sm:min-h-[180px] justify-center">
-                                <h.icon size={20} className="mb-4 opacity-65 shrink-0" />
+                            <div key={i} className="flex flex-col items-center text-center p-6 sm:p-8 border border-[var(--border)] rounded-2xl bg-stone-50 dark:bg-stone-900/50 justify-center">
+                                <h.icon size={18} className="mb-3 opacity-65 shrink-0" />
                                 <div className="flex flex-col gap-1">
                                     {h.text.map((line, li) => (
-                                        <span key={li} className="text-sm sm:text-base tracking-widest font-bold uppercase leading-tight">{line}</span>
+                                        <span key={li} className="text-sm tracking-widest font-bold uppercase leading-tight">{line}</span>
                                     ))}
                                 </div>
                             </div>
@@ -145,7 +146,7 @@ export default function CityGuidebook() {
                             <div className="h-px w-8 sm:w-12 bg-stone-300 dark:bg-stone-700 mx-auto" />
                         </div>
 
-                        <Link href="https://tinyurl.com/welcome-mar26" target="_blank" className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-[var(--border)] text-sm font-semibold tracking-widest uppercase text-stone-600 hover:text-[var(--fg)] transition-all">
+                        <Link href="https://tinyurl.com/welcome-apr26" target="_blank" className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-[var(--border)] text-sm font-semibold tracking-widest uppercase text-stone-600 hover:text-[var(--fg)] transition-all">
                             <FileText className="w-3 h-3 sm:w-4 sm:h-4" /> View PDF Version <ExternalLink className="w-3 h-3 sm:w-3 sm:h-3 opacity-50" />
                         </Link>
                     </div>

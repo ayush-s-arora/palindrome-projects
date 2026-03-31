@@ -109,35 +109,35 @@ export default function CityGuidebook() {
                         <p className="text-sm tracking-[0.4em] uppercase text-stone-500 font-medium">FROM PALINDROME PROJECTS</p>
                     </motion.div>
 
-                    {/* Image — cropped from top only so address stays visible */}
-                    <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 1 }} className="mt-8 sm:mt-12 aspect-[4/6] rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-sm">
-                        <img src="/nashville-4.jpeg" className="w-full h-full object-cover object-bottom" />
-                    </motion.div>
+                    {/* Image + Address: stacked on mobile, side-by-side on desktop */}
+                    <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 1 }} className="mt-8 sm:mt-12 mb-12 sm:mb-16 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 items-stretch text-left">
+                        {/* Image — consistent 4:6 crop from top only */}
+                        <div className="aspect-[4/6] sm:aspect-auto rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-sm">
+                            <img src="/nashville-4.jpeg" className="w-full h-full object-cover object-bottom" />
+                        </div>
 
-                    {/* Address */}
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.6 }} className="mt-4 text-left">
-                        <Link href="https://maps.app.goo.gl/Ds34kPRXzyV1Jf8P8" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 px-6 py-5 bg-stone-100 dark:bg-stone-900 rounded-2xl border border-[var(--border)] hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors">
-                            <MapPin size={20} className="text-stone-400 shrink-0" />
-                            <div className="flex flex-col gap-0.5">
-                                <span className="text-base font-semibold leading-tight tracking-tight">Sentral Sobro</span>
-                                <span className="text-sm text-stone-500 underline underline-offset-2 decoration-stone-300">516 Lea Ave, Unit 1018, Nashville, TN 37203</span>
-                            </div>
-                        </Link>
-                    </motion.div>
-
-                    {/* Highlights Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 sm:mt-8 mb-12 sm:mb-16">
-                        {HIGHLIGHTS.map((h, i) => (
-                            <div key={i} className="flex flex-col items-center text-center p-6 sm:p-8 border border-[var(--border)] rounded-2xl bg-stone-50 dark:bg-stone-900/50 justify-center">
-                                <h.icon size={18} className="mb-3 opacity-65 shrink-0" />
-                                <div className="flex flex-col gap-1">
-                                    {h.text.map((line, li) => (
-                                        <span key={li} className="text-sm tracking-widest font-bold uppercase leading-tight">{line}</span>
-                                    ))}
+                        {/* Address + Highlights — fills height of image on desktop */}
+                        <div className="flex flex-col gap-4">
+                            <Link href="https://maps.app.goo.gl/Ds34kPRXzyV1Jf8P8" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 px-6 py-5 bg-stone-100 dark:bg-stone-900 rounded-2xl border border-[var(--border)] hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors shrink-0">
+                                <MapPin size={20} className="text-stone-400 shrink-0" />
+                                <div className="flex flex-col gap-0.5">
+                                    <span className="text-base font-semibold leading-tight tracking-tight">Sentral Sobro</span>
+                                    <span className="text-sm text-stone-500 underline underline-offset-2 decoration-stone-300">516 Lea Ave, Unit 1018, Nashville, TN 37203</span>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            </Link>
+                            {HIGHLIGHTS.map((h, i) => (
+                                <div key={i} className="flex flex-col items-center text-center p-6 border border-[var(--border)] rounded-2xl bg-stone-50 dark:bg-stone-900/50 justify-center flex-1">
+                                    <h.icon size={18} className="mb-3 opacity-65 shrink-0" />
+                                    <div className="flex flex-col gap-1">
+                                        {h.text.map((line, li) => (
+                                            <span key={li} className="text-sm tracking-widest font-bold uppercase leading-tight">{line}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+
 
                     <div className="flex flex-col items-center gap-6 sm:gap-10">
                         <div className="space-y-4">

@@ -474,7 +474,7 @@ export default function CityGuidebook() {
                                             </div>
                                             <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-stone-100 dark:bg-stone-900 border border-[var(--border)]">
                                                 <span className="text-sm font-bold text-stone-500 block uppercase">Building Code</span>
-                                                <span className="text-lg sm:text-xl font-bold">1126#</span>
+                                                <span className="text-lg sm:text-xl font-bold">0404#</span>
                                             </div>
                                         </div>
 
